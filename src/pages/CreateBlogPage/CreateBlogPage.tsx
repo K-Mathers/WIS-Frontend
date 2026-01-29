@@ -11,6 +11,8 @@ import {
   successNotification,
 } from "@/utils/notification/notification";
 import Header from "../../components/Header/Header";
+import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
+import AuthLocked from "@/components/AuthLocked/AuthLocked";
 
 const CreateBlogPage = () => {
   const [userTitle, setUserTitle] = useState<string>("");
@@ -74,6 +76,8 @@ const CreateBlogPage = () => {
     setGalleryPreviewsUrl([]);
   };
 
+  const { isAuthenticated } = useAuth();
+
   const handlePublishBlog = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -104,6 +108,17 @@ const CreateBlogPage = () => {
       console.error(error);
     }
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="comic-page-wrapper">
+        <Hero />
+        <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
+          <AuthLocked title="Write right now?" text="You need to be logged!" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="comic-page-wrapper">
@@ -154,9 +169,8 @@ const CreateBlogPage = () => {
                 <label className="comic-label-badge">COVER IMAGE</label>
 
                 <div
-                  className={`comic-upload-zone ${
-                    coverPreviewUrl ? "filled" : "empty"
-                  }`}
+                  className={`comic-upload-zone ${coverPreviewUrl ? "filled" : "empty"
+                    }`}
                   onClick={() => coverInputRef.current?.click()}
                 >
                   {coverPreviewUrl ? (

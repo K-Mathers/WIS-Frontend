@@ -15,11 +15,7 @@ const CreateArticle = () => {
           Let’s go, just read our docs and click button
         </p>
       </div>
-      <div
-        onClick={() =>
-          isAuthenticated ? navigate("/blog/create") : navigate("/login")
-        }
-      >
+      <div onClick={() => navigate("/blog/create")}>
         <CustomButton
           transition="all 0.2s ease"
           fz="32px"

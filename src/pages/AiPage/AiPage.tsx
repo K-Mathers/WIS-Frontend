@@ -2,11 +2,12 @@ import "./AiPage.css";
 import LeftSide from "./LeftSide/LeftSide";
 import RightSide, { type IChatMessage } from "./RightSide/RightSide";
 import { useEffect, useState } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { getSpecificSessionsDetail } from "@/api/ai";
 import type { IServerMessage } from "@/types/SessionsDataTypes";
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 import Header from "@/components/Header/Header";
+import AuthLocked from "@/components/AuthLocked/AuthLocked";
 
 const AiPage = () => {
   const [selectedMode, setSelectedMode] = useState("CREATIVE");
@@ -14,7 +15,7 @@ const AiPage = () => {
 
   const { sessionId } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
+
   const { isAuthenticated } = useAuth();
 
   const loadHistory = async (id: string) => {
@@ -36,12 +37,6 @@ const AiPage = () => {
   };
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-    }
-  }, [isAuthenticated, navigate]);
-
-  useEffect(() => {
     const stateMessages = location.state?.preserveMessages;
     if (stateMessages && Array.isArray(stateMessages)) {
       setMessages(stateMessages);
@@ -58,21 +53,27 @@ const AiPage = () => {
 
   return (
     <div className="ai-page-layout">
-      <LeftSide
-        sessionId={sessionId}
-        selectedMode={selectedMode}
-        setSelectedMode={setSelectedMode}
-      />
+      {isAuthenticated && (
+        <LeftSide
+          sessionId={sessionId}
+          selectedMode={selectedMode}
+          setSelectedMode={setSelectedMode}
+        />
+      )}
 
       <main className="ai-main-wrapper">
         <Header />
 
-        <RightSide
-          sessionId={sessionId}
-          selectedMode={selectedMode}
-          messages={messages}
-          setMessages={setMessages}
-        />
+        {isAuthenticated ? (
+          <RightSide
+            sessionId={sessionId}
+            selectedMode={selectedMode}
+            messages={messages}
+            setMessages={setMessages}
+          />
+        ) : (
+          <AuthLocked />
+        )}
       </main>
     </div>
   );
