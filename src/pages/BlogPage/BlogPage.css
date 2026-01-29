@@ -11,11 +11,6 @@
   overflow-x: hidden;
 }
 
-.blog-header-wrapper {
-  width: 100%;
-  z-index: 10;
-}
-
 .blog-content-wrapper {
   flex: 1;
   display: flex;
@@ -27,8 +22,8 @@
   gap: 60px;
 }
 
-.blog-header-wrapper .logo-text,
-.blog-header-wrapper .header-link {
+.logo-text,
+.header-link {
   font-size: 20px;
   text-transform: uppercase;
   font-weight: 900;
@@ -36,11 +31,11 @@
   text-decoration: none;
 }
 
-.blog-header-wrapper .header-link:hover {
+.header-link:hover {
   color: #e74c3c;
 }
 
-.blog-header-wrapper .header-link::after {
+.header-link::after {
   display: none;
 }
 

@@ -1,4 +1,3 @@
-import Hero from "../HomePage/ui/Hero/Hero";
 import "./AiPage.css";
 import LeftSide from "./LeftSide/LeftSide";
 import RightSide, { type IChatMessage } from "./RightSide/RightSide";
@@ -7,6 +6,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { getSpecificSessionsDetail } from "@/api/ai";
 import type { IServerMessage } from "@/types/SessionsDataTypes";
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
+import Header from "@/components/Header/Header";
 import AuthLocked from "@/components/AuthLocked/AuthLocked";
 
 const AiPage = () => {
@@ -62,9 +62,7 @@ const AiPage = () => {
       )}
 
       <main className="ai-main-wrapper">
-        <div className="ai-header-container">
-          <Hero />
-        </div>
+        <Header />
 
         {isAuthenticated ? (
           <RightSide

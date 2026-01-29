@@ -9,8 +9,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<IUserData | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const refreshAuth = async () => {
+    setIsLoading(true);
     try {
       const data = await getUser();
       setUser(data);
@@ -19,6 +21,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       setUser(null);
       setIsAuthenticated(false);
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -27,7 +31,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, refreshAuth }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, user, refreshAuth, isLoading }}
+    >
       {children}
     </AuthContext.Provider>
   );

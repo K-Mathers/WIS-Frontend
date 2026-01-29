@@ -5,6 +5,7 @@ import jordanRed from "@/assets/AuthAssets/sneaker1.png";
 import sneakerBlue from "@/assets/AuthAssets/sneaker2.png";
 import burstPow from "@/assets/AuthAssets/burst_pow.png";
 import burstZap from "@/assets/AuthAssets/burst_zap.png";
+import Header from "@/components/Header/Header";
 import Hero from "@/components/HomePage/ui/Hero/Hero";
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 import AuthLocked from "@/components/AuthLocked/AuthLocked";
@@ -15,7 +16,7 @@ const ProfilePage = () => {
   return (
     <div className="profile-page-container">
       <div className="profile-header-wrapper">
-        <Hero />
+        <Header />
       </div>
 
       <div className="profile-content-wrapper">
@@ -41,7 +42,6 @@ const ProfilePage = () => {
               className="comic-decoration decor-bottom-right"
               alt=""
             />
-
             <ProfileCard />
           </>
         ) : (

@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import "./CreateBlogPage.css";
-import Hero from "../HomePage/ui/Hero/Hero";
 import { uploadImage } from "@/api/ai";
 import { createBlog } from "@/api/blog";
 import type { IBlogJSON } from "@/api/blog/types";
@@ -11,6 +10,7 @@ import {
   errorNotification,
   successNotification,
 } from "@/utils/notification/notification";
+import Header from "../../components/Header/Header";
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 import AuthLocked from "@/components/AuthLocked/AuthLocked";
 
@@ -122,7 +122,7 @@ const CreateBlogPage = () => {
 
   return (
     <div className="comic-page-wrapper">
-      <Hero />
+      <Header />
       <div className="comic-form-container mt-12">
         <div className="comic-badge-top">NEW POST</div>
 

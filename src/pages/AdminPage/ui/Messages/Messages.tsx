@@ -9,6 +9,7 @@ const Messages = () => {
   const [input, setInput] = useState("");
   const [chats, setChats] = useState<IChat[]>([]);
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const socketRef = useRef<Socket | null>(null);
 
   const currentChat = chats.find((c) => c.id === selectedChat);
@@ -22,6 +23,10 @@ const Messages = () => {
       setInput("");
     }
   };
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [currentChat?.messages]);
 
   useEffect(() => {
     const socket = io("http://localhost:3000/support", {
@@ -43,13 +48,17 @@ const Messages = () => {
     });
 
     socket.on("new_message", (message: IMessages) => {
-      setChats((prev) =>
-        prev.map((chat) =>
-          chat.id === message.chatId
-            ? { ...chat, messages: [...(chat.messages || []), message] }
-            : chat,
-        ),
-      );
+      setChats((prevChats) => {
+        return prevChats.map((chat) => {
+          if (chat.id === message.chatId) {
+            return {
+              ...chat,
+              messages: [...(chat.messages || []), message],
+            };
+          }
+          return chat;
+        });
+      });
     });
 
     return () => {
@@ -126,7 +135,7 @@ const Messages = () => {
                   </div>
                 );
               })}
-              <div />
+              <div ref={messagesEndRef} />
             </div>
             <div className="message-input-area">
               <div className="input-wrapper">
