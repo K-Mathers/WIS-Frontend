@@ -28,19 +28,15 @@
   padding: 20px;
 }
 
-.ai-header-container {
-  width: 100%;
-  z-index: 20;
-}
 
-.ai-header-container .logo-text,
-.ai-header-container .header-link {
+.logo-text,
+.header-link {
   font-size: 20px;
   text-transform: uppercase;
   font-weight: 700;
 }
 
-.ai-header-container .header-link:hover {
+.header-link:hover {
   color: #e74c3c;
 }
 
@@ -66,13 +62,6 @@
 
   .ai-content-scrollable {
     padding: 10px;
-  }
-
-  .ai-header-container {
-    display: block;
-    position: sticky;
-    top: 0;
-    z-index: 50;
   }
 }
 

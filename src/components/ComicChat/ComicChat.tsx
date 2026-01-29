@@ -16,7 +16,7 @@ const ComicChat: React.FC = () => {
     if (input.trim() && socketRef.current) {
       const messagePayload = {
         content: input,
-        chatId: activeChatId,
+        ...(activeChatId ? { chatId: activeChatId } : {}),
       };
       socketRef.current.emit("send_message", messagePayload);
       setInput("");
@@ -36,22 +36,34 @@ const ComicChat: React.FC = () => {
         socket.emit("join_chat");
       });
 
-      socket.on("message_history", (history: IMessages[]) => {
-        setMessages(history);
-        if (history.length > 0) {
-          setActiveChatId(history[0].chatId);
+      socket.on("message_history", (data) => {
+        if (Array.isArray(data)) {
+          setMessages(data);
+          if (data.length > 0) {
+            setActiveChatId(data[0].chatId);
+          }
+        } else if (data && Array.isArray(data.messages)) {
+          setMessages(data.messages);
+          setActiveChatId(data.chatId);
         }
       });
 
       socket.on("new_message", (msg: IMessages) => {
         setMessages((prev) => [...prev, msg]);
+        if (!activeChatId) {
+          setActiveChatId(msg.chatId);
+        }
       });
 
       return () => {
         socket.disconnect();
       };
     }
-  }, [isOpen]);
+  }, [activeChatId, isOpen]);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <div className={`comic-chat-container ${isOpen ? "open" : ""}`}>
@@ -69,14 +81,27 @@ const ComicChat: React.FC = () => {
             </button>
           </div>
           <div className="comic-chat-messages">
-            {messages.map((msg, idx) => (
-              <div
-                key={idx}
-                className={`comic-message-bubble ${msg.senderRole === "ADMIN" ? "admin" : "user"}`}
-              >
-                {msg.content}
-              </div>
-            ))}
+            {messages.map((msg, idx) => {
+              const isUser = msg.senderRole?.trim().toUpperCase() === "USER";
+
+              return (
+                <div
+                  key={idx}
+                  className={`comic-message-bubble ${isUser ? "user" : "admin"}`}
+                  style={{ alignSelf: isUser ? "flex-end" : "flex-start" }}
+                >
+                  <div className="message-content">{msg.content}</div>
+                  {msg.createdAt && (
+                    <div className="message-time">
+                      {new Date(msg.createdAt).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <div ref={messagesEndRef} />
           </div>
           <div className="comic-chat-input-area">

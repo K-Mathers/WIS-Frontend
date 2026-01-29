@@ -28,7 +28,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassPage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/ai/:sessionId" element={<AiPage />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/*" element={<AdminPage />} />
         </Routes>
       </ThemeProvider>
     </AuthProvider>

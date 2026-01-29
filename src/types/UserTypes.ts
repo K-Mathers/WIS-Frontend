@@ -1,7 +1,7 @@
 export interface IUserData {
   id: string;
   email: string;
-  role: string;
+  role: "USER" | "ADMIN";
   createdAt: string;
   isVerified: false;
 }

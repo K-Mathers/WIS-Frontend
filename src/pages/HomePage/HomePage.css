@@ -11,6 +11,31 @@
     overflow-x: hidden;
 }
 
+.header {
+  background-image: url("./HeaderBackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 68px;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  border-bottom: 8px solid #000;
+  background-color: #fdfbf1;
+}
+
+.start-btn-block {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.dark-theme .header {
+  background-color: #121212;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("./HeaderBackground.jpg");
+  border-bottom: 8px solid #ffde03;
+}
+
 .home-content-wrapper {
     flex: 1;
     position: relative;
@@ -105,6 +130,25 @@
     50% {
         transform: scale(1.15) rotate(20deg);
     }
+}
+
+
+@media (max-width: 768px) {
+  .header {
+    background-position: center 120px;
+    min-height: 80vh;
+  }
+
+  .start-btn-block {
+    height: 40vh;
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    background-position: center 150px;
+  }
 }
 
 @media (max-width: 1200px) {

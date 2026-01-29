@@ -3,22 +3,20 @@ import "./ForgotPassPage.css";
 import "../ProfilePage/ui/ProfileCard/ProfileCard.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Hero from "@/components/HomePage/ui/Hero/Hero";
 import jordanRed from "@/assets/AuthAssets/sneaker1.png";
 import sneakerBlue from "@/assets/AuthAssets/sneaker2.png";
 import burstPow from "@/assets/AuthAssets/burst_pow.png";
 import burstZap from "@/assets/AuthAssets/burst_zap.png";
+import Header from "../../components/Header/Header";
 
-interface IForgotPassPage { }
-
-const ForgotPassPage = ({ }: IForgotPassPage) => {
+const ForgotPassPage = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   return (
     <div className="profile-page-container">
       <div className="profile-header-wrapper">
-        <Hero />
+        <Header />
       </div>
 
       <div className="profile-content-wrapper">

@@ -5,6 +5,7 @@ export interface IAuthContext {
   isAuthenticated: boolean;
   user: IUserData | null;
   refreshAuth: () => Promise<void>;
+  isLoading: boolean;
 }
 
 export const AuthContext = createContext<IAuthContext | undefined>(undefined);

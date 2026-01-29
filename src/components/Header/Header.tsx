@@ -1,29 +1,16 @@
-import React, { useEffect, useState } from "react";
-import "./Hero.css";
+import "./Header.css";
 import { Link } from "react-router-dom";
 import LogoSVG from "@/assets/HeaderAssets/LogoSVG/LogoSVG";
-import { getUser } from "@/api/auth";
 import { useTheme } from "@/context/ThemeContext";
+import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 
-interface IHero {
+interface IHeader {
   backgroundColor?: string;
 }
 
-const Hero: React.FC<IHero> = ({ backgroundColor }) => {
-  const [isUserExist, setIsUserExist] = useState(null);
+const Header = ({ backgroundColor }: IHeader) => {
   const { isDarkMode, toggleTheme } = useTheme();
-
-  useEffect(() => {
-    const userData = async () => {
-      try {
-        const response = await getUser();
-        setIsUserExist(response);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    userData();
-  }, []);
+  const { isAuthenticated, isLoading, user } = useAuth();
 
   return (
     <div className={`link-block ${backgroundColor}`}>
@@ -43,13 +30,18 @@ const Hero: React.FC<IHero> = ({ backgroundColor }) => {
         <Link className="header-link" to="/ai">
           AI GUIDE
         </Link>
-        {isUserExist ? (
+        {isAuthenticated ? (
           <Link className="header-link" to="/profile">
             PROFILE
           </Link>
         ) : (
           <Link className="header-link" to="/login">
             LOGIN
+          </Link>
+        )}
+        {!isLoading && user && (
+          <Link className="header-link" to="/admin">
+            ADMIN
           </Link>
         )}
       </div>
@@ -108,4 +100,4 @@ const Hero: React.FC<IHero> = ({ backgroundColor }) => {
   );
 };
 
-export default Hero;
+export default Header;
