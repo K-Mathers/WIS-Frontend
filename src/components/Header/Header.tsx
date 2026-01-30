@@ -39,7 +39,7 @@ const Header = ({ backgroundColor }: IHeader) => {
             LOGIN
           </Link>
         )}
-        {!isLoading && user && (
+        {!isLoading && user?.role === "ADMIN" && (
           <Link className="header-link" to="/admin">
             ADMIN
           </Link>
