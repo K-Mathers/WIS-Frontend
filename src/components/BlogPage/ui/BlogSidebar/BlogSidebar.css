@@ -1,0 +1,78 @@
+.blog-sidebar {
+    width: 100%;
+    max-width: 300px;
+    background-color: #fff;
+    border-right: 4px solid #000;
+    padding: 0;
+    font-family: 'Comic Neue', cursive;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    margin: 0;
+}
+
+.sidebar-sticky-content {
+    position: sticky;
+    top: 20px;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-title {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    border-bottom: 4px solid #000;
+    padding-bottom: 15px;
+    text-align: center;
+    background-color: #ffde03;
+    box-shadow: 5px 5px 0px #000;
+    transform: rotate(-2deg);
+}
+
+.categories-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.category-item {
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 15px 15px;
+    border: 3px solid #000;
+    background-color: #ffffff;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-transform: uppercase;
+    position: relative;
+    text-align: center;
+    max-width: 250px;
+    width: 100%;
+}
+
+.category-item:hover {
+    background-color: #ffde03;
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 6px 6px 0px #000;
+    z-index: 2;
+}
+
+@media (max-width: 850px) {
+    .blog-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 4px solid #000;
+        padding: 20px;
+        top: auto;
+    }
+
+}

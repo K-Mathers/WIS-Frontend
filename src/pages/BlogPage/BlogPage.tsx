@@ -1,12 +1,10 @@
 import "./BlogPage.css";
-import CategorieCard from "../../components/BlogPage/ui/CategorieCard/CategorieCard";
-import CreateArticle from "../../components/BlogPage/ui/CreateArticle/CreateArticle";
+import BlogSidebar from "../../components/BlogPage/ui/BlogSidebar/BlogSidebar";
 import FooterHome from "../HomePage/ui/Footer/FooterHome";
-import jordanRed from "@/assets/AuthAssets/sneaker1.png";
-import sneakerBlue from "@/assets/AuthAssets/sneaker2.png";
-import burstPow from "@/assets/AuthAssets/burst_pow.png";
-import burstZap from "@/assets/AuthAssets/burst_zap.png";
 import Header from "@/components/Header/Header";
+import { Route, Routes } from "react-router-dom";
+import BlogList from "./BlogList/BlogList";
+import BlogCategory from "./BlogCategory/BlogCategory";
 
 const BlogPage = () => {
   return (
@@ -14,30 +12,14 @@ const BlogPage = () => {
       <Header />
 
       <div className="blog-content-wrapper">
-        <img
-          src={jordanRed}
-          className="comic-decoration decor-top-left"
-          alt=""
-        />
-        <img
-          src={sneakerBlue}
-          className="comic-decoration decor-top-right"
-          alt=""
-        />
-        <img
-          src={burstPow}
-          className="comic-decoration decor-bottom-left"
-          alt=""
-        />
-        <img
-          src={burstZap}
-          className="comic-decoration decor-bottom-right"
-          alt=""
-        />
+        <div className="blog-layout-row">
+          <BlogSidebar />
 
-        {/* <SearchBlock /> */}
-        <CategorieCard />
-        <CreateArticle />
+          <Routes>
+            <Route path="/" element={<BlogList />} />
+            <Route path="/:categoryName" element={<BlogCategory />} />
+          </Routes>
+        </div>
       </div>
 
       <FooterHome />

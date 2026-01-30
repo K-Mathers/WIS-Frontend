@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import "./Article.css";
 import { getPendingArticle, moderateArticle } from "@/api/admin";
 import ReactMarkdown from "react-markdown";
-import { getPublicBlog } from "@/api/blog";
 
 interface IAuthor {
   id: string;
@@ -48,8 +47,7 @@ const Article = () => {
     feedback: string,
   ) => {
     setArticles((prev) => prev.filter((el) => el.id !== id));
-    const data = await moderateArticle(id, { decision, feedback });
-    console.log(data);
+    await moderateArticle(id, { decision, feedback });
   };
 
   useEffect(() => {
