@@ -18,7 +18,7 @@ const CreateBlogPage = () => {
   const [userTitle, setUserTitle] = useState<string>("");
   const [shortDescription, setShortDescription] = useState<string>("");
   const [category, setCategory] = useState<string>("USERS_ARTICLES");
-
+  console.log(category);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [coverPreviewUrl, setCoverPreviewUrl] = useState<string | null>(null);
 
@@ -26,6 +26,7 @@ const CreateBlogPage = () => {
   const [galleryPreviewsUrl, setGalleryPreviewsUrl] = useState<string[]>([]);
 
   const coverInputRef = useRef<HTMLInputElement>(null);
+  const { isAuthenticated } = useAuth();
 
   const editor = useEditor({
     extensions: [StarterKit],
@@ -76,8 +77,6 @@ const CreateBlogPage = () => {
     setGalleryPreviewsUrl([]);
   };
 
-  const { isAuthenticated } = useAuth();
-
   const handlePublishBlog = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -112,8 +111,14 @@ const CreateBlogPage = () => {
   if (!isAuthenticated) {
     return (
       <div className="comic-page-wrapper">
-        <Hero />
-        <div style={{ marginTop: "100px", display: "flex", justifyContent: "center" }}>
+        <Header />
+        <div
+          style={{
+            marginTop: "100px",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <AuthLocked title="Write right now?" text="You need to be logged!" />
         </div>
       </div>
@@ -169,8 +174,9 @@ const CreateBlogPage = () => {
                 <label className="comic-label-badge">COVER IMAGE</label>
 
                 <div
-                  className={`comic-upload-zone ${coverPreviewUrl ? "filled" : "empty"
-                    }`}
+                  className={`comic-upload-zone ${
+                    coverPreviewUrl ? "filled" : "empty"
+                  }`}
                   onClick={() => coverInputRef.current?.click()}
                 >
                   {coverPreviewUrl ? (
@@ -242,7 +248,7 @@ const CreateBlogPage = () => {
                 <option value="BEST_MINIMALS">BEST_MINIMALS</option>
                 <option value="CRAZY_SHOES">CRAZY_SHOES</option>
                 <option value="NEW_SHOES">NEW_SHOES</option>
-                <option value="My_BLOG">My_BLOG</option>
+                <option value="MY_BLOG">MY_BLOG</option>
                 <option value="USERS_ARTICLES">USERS_ARTICLES</option>
               </select>
             </div>

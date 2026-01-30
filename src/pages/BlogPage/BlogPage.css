@@ -8,19 +8,34 @@
   background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
   background-size: 20px 20px;
   font-family: 'Comic Neue', cursive;
-  overflow-x: hidden;
 }
 
 .blog-content-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
   position: relative;
   z-index: 1;
-  gap: 60px;
+  width: 100%;
 }
+
+.blog-layout-row {
+  display: flex;
+  width: 100%;
+  flex: 1;
+}
+
+.blog-content-column {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  /* Center cards in the remaining space */
+}
+
+/* Sidebar Styles Overrides/Adjustments if needed can go here, but mainly in BlogSidebar.css */
 
 .logo-text,
 .header-link {
@@ -137,4 +152,11 @@
     display: none;
   }
 
+  .blog-layout-row {
+    flex-direction: column;
+  }
+
+  .blog-content-column {
+    padding: 20px;
+  }
 }

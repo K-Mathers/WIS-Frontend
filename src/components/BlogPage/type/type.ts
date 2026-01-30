@@ -16,7 +16,7 @@ interface IAuthor {
   id: string;
   email: string;
 }
-interface IData {
+export interface IData {
   author: IAuthor;
   category: string;
   coverImage: string;
@@ -26,8 +26,11 @@ interface IData {
   shortDescription: string;
   slug: string;
   title: string;
+  views: number;
 }
 export interface IBlog {
   data: IData[];
   meta: IMeta;
 }
+
+export type IBlogMapping = Record<string, IData | undefined>;

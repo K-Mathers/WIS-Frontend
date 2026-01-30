@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../../CustomButton/CustomButton";
 import "./CreateArticle.css";
-import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 
 const CreateArticle = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
 
   return (
     <div className="create-article-block">
