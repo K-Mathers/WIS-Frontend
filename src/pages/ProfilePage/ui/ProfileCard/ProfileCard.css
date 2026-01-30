@@ -6,7 +6,6 @@
 
 .profile-sidebar {
   width: 250px;
-  margin-right: 40px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -17,7 +16,6 @@
   font-weight: 900;
   text-transform: uppercase;
   margin-bottom: 20px;
-  color: #ff5252;
   text-shadow: 2px 2px 0 #000;
   transform: rotate(-2deg);
 }
