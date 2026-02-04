@@ -40,7 +40,6 @@ const AdminWrapper = ({ children }: IAdminWrapper) => {
               MESSAGES
             </button>
           </nav>
-          <div className="sidebar-footer">POW! v.1.0</div>
         </aside>
         {children}
       </div>

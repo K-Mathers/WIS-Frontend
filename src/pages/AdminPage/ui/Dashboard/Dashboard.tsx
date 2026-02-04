@@ -1,30 +1,59 @@
+import { useEffect, useState } from "react";
 import "./Dashboard.css";
+import { getDashboard } from "@/api/admin";
+import type { IDashboardData, ITask } from "@/api/admin/types";
+import MissionModal from "./MissionModal";
 
 const Dashboard = () => {
+  const [dashData, setDashData] = useState<IDashboardData>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
+
+  const getDashboardStats = async () => {
+    try {
+      const data = await getDashboard();
+      setDashData(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getDashboardStats();
+  }, []);
+
+  const handleCreateMission = () => {
+    setSelectedTask(null);
+    setIsModalOpen(true);
+  }
+
+  const handleEditMission = (task: ITask) => {
+    setSelectedTask(task)
+    setIsModalOpen(true)
+  }
+
   return (
     <main className="comic-main">
-      <header className="comic-header">
-        <h1>WELCOME BACK, BOSS!</h1>
-        <div className="user-badge">HERO #1</div>
-      </header>
-
       <section className="stats-grid">
         <div className="comic-card yellow">
           <h3>ACTIVE USERS</h3>
-          <p className="stat-value">1,240</p>
+          <p className="stat-value">{dashData?.stats.totalUser}</p>
         </div>
         <div className="comic-card red">
-          <h3>REVENUE</h3>
-          <p className="stat-value">$50,000</p>
+          <h3>ARTICLES</h3>
+          <p className="stat-value">{dashData?.stats.totalArticles}</p>
         </div>
         <div className="comic-card blue">
           <h3>NEW MESSAGES</h3>
-          <p className="stat-value">12</p>
+          <p className="stat-value">{dashData?.stats.newMessages}</p>
         </div>
       </section>
 
       <section className="comic-panel table-panel">
-        <h2>RECENT MISSIONS (TASKS)</h2>
+        <div className="panel-header">
+          <h2>RECENT MISSIONS (TASKS)</h2>
+          <button className="comic-btn" onClick={handleCreateMission}>CREATE MISSION</button>
+        </div>
         <table className="comic-table">
           <thead>
             <tr>
@@ -35,29 +64,36 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>#001</td>
-              <td>Fix CSS Bugs</td>
-              <td>
-                <span className="status-tag">DONE</span>
-              </td>
-              <td>
-                <button className="comic-btn">VIEW</button>
-              </td>
-            </tr>
-            <tr>
-              <td>#002</td>
-              <td>Save the World</td>
-              <td>
-                <span className="status-tag active">IN PROGRESS</span>
-              </td>
-              <td>
-                <button className="comic-btn">VIEW</button>
-              </td>
-            </tr>
+            {dashData?.missions.map((task) => (
+              <tr key={task.id}>
+                <td title={task.id}>#{task.id.slice(0, 4)}</td>
+                <td>{task.title}</td>
+                <td>
+                  <span className={`status-tag ${task.status.toLowerCase()}`}>
+                    {task.status}
+                  </span>
+                </td>
+                <td>
+                  <button className="comic-btn" onClick={() => handleEditMission(task)}>VIEW</button>
+                </td>
+              </tr>
+            ))}
+            {dashData?.missions.length === 0 && (
+              <tr>
+                <td colSpan={4} style={{ textAlign: "center" }}>
+                  No tasks found
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </section>
+      <MissionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={getDashboardStats}
+        task={selectedTask}
+      />
     </main>
   );
 };
