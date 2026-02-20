@@ -27,7 +27,7 @@ const BlogSidebar = () => {
           {categories.map((category) => (
             <NavLink
               key={category}
-              to={`/blog/${category}`}
+              to={`/blog/category/${category}`}
               className={({ isActive }) =>
                 isActive ? "category-item active" : "category-item"
               }

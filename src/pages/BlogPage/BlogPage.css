@@ -32,10 +32,7 @@
   flex-direction: column;
   gap: 60px;
   align-items: center;
-  /* Center cards in the remaining space */
 }
-
-/* Sidebar Styles Overrides/Adjustments if needed can go here, but mainly in BlogSidebar.css */
 
 .logo-text,
 .header-link {

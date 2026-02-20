@@ -17,7 +17,7 @@ const BlogPage = () => {
 
           <Routes>
             <Route path="/" element={<BlogList />} />
-            <Route path="/:categoryName" element={<BlogCategory />} />
+            <Route path="/category/:categoryName" element={<BlogCategory />} />
           </Routes>
         </div>
       </div>
