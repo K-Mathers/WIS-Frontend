@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./Article.css";
 import { getPendingArticle, moderateArticle } from "@/api/admin";
 import ReactMarkdown from "react-markdown";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface IAuthor {
   id: string;
@@ -26,35 +27,51 @@ interface IPendingArticle {
 }
 
 const Article = () => {
-  const [articles, setArticles] = useState<IPendingArticle[]>([]);
+  const queryClient = useQueryClient();
   const [feedbacks, setFeedbacks] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(true);
+  const {
+    data: articles = [],
+    isPending,
+    isError,
+    error,
+  } = useQuery<IPendingArticle[]>({
+    queryKey: ["pending-articles"],
+    queryFn: getPendingArticle,
+    staleTime: 1000 * 60 * 5,
+  });
 
-  const getArticles = async () => {
-    try {
-      const data = await getPendingArticle();
-      setArticles(data);
-    } catch (err) {
-      console.error("Failed to fetch:", err);
-    } finally {
-      setLoading(false);
-    }
+  const { mutate: moderate } = useMutation({
+    mutationFn: ({
+      id,
+      decision,
+      feedback,
+    }: {
+      id: string;
+      decision: string;
+      feedback: string;
+    }) => moderateArticle(id, { decision, feedback }),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["pending-articles"] });
+    },
+    onError: (err) => {
+      console.error("Moderation error:", err);
+      alert("Failed to send decision");
+    },
+  });
+
+  const handleModerateClick = (id: string, decision: string) => {
+    moderate({ id, decision, feedback: feedbacks[id] || "" });
+    setFeedbacks((prev) => {
+      const n = { ...prev };
+      delete n[id];
+      return n;
+    });
   };
 
-  const handleModerateArticle = async (
-    id: string,
-    decision: string,
-    feedback: string,
-  ) => {
-    setArticles((prev) => prev.filter((el) => el.id !== id));
-    await moderateArticle(id, { decision, feedback });
-  };
-
-  useEffect(() => {
-    getArticles();
-  }, []);
-
-  if (loading) return <div className="comic-loader">LOADING DOSSIER...</div>;
+  if (isPending) return <div className="comic-loader">LOADING DOSSIER...</div>;
+  if (isError)
+    return <div className="error">Error loading data: {error.message}</div>;
 
   return (
     <div className="moderation-page">
@@ -179,25 +196,13 @@ const Article = () => {
             <div className="card-actions">
               <button
                 className="btn-mod btn-reject"
-                onClick={() =>
-                  handleModerateArticle(
-                    art.id,
-                    "REJECT",
-                    feedbacks[art.id] || "",
-                  )
-                }
+                onClick={() => handleModerateClick(art.id, "REJECT")}
               >
                 DENY
               </button>
               <button
-                onClick={() =>
-                  handleModerateArticle(
-                    art.id,
-                    "APPROVE",
-                    feedbacks[art.id] || "",
-                  )
-                }
                 className="btn-mod btn-approve"
+                onClick={() => handleModerateClick(art.id, "APPROVE")}
               >
                 PUBLISH
               </button>
