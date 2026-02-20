@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./BlogCategory.css";
 import { getPublicBlog } from "@/api/blog";
 import { useEffect, useMemo, useState } from "react";
-import type { IBlog, IData } from "@/components/BlogPage/type/type";
+import type { IBlog } from "@/components/BlogPage/type/type";
 
 const BlogCategory = () => {
   const [blogsList, setBlogsList] = useState<IBlog | null>(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const { categoryName } = useParams<{ categoryName?: string }>();
 
@@ -19,19 +20,22 @@ const BlogCategory = () => {
 
     return blogsList.data.filter((el) => el.category === categoryName);
   }, [blogsList?.data, categoryName]);
+  console.log(blogsList);
+
+  const getBlogs = async () => {
+    setLoading(true);
+    try {
+      const response = await getPublicBlog();
+      console.log(response);
+      setBlogsList(response);
+    } catch (err) {
+      console.error("Ошибка при загрузке блога:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const getBlogs = async () => {
-      setLoading(true);
-      try {
-        const response = await getPublicBlog();
-        setBlogsList(response);
-      } catch (err) {
-        console.error("Ошибка при загрузке блога:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
     getBlogs();
   }, []);
 
@@ -64,7 +68,11 @@ const BlogCategory = () => {
       <section className="cards-section">
         {filteredBlog.map((el) => {
           return (
-            <div className="card" key={el.id}>
+            <div
+              onClick={() => navigate(`/blog/${el.id}`)}
+              className="card"
+              key={el.id}
+            >
               <div className="upper-part">
                 <img src={el.coverImage} className="soon-image" alt="cover" />
                 <p className="card-description">{el.title}</p>
