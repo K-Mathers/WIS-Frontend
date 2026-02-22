@@ -6,6 +6,7 @@ import { newChatSession, uploadImage } from "@/api/ai";
 import type { IChatMessage } from "../../RightSide";
 import { useNavigate } from "react-router-dom";
 import { aiPath } from "@/api/ai/aiPath";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface IAIInput {
   sessionIdNow: string | undefined;
@@ -25,31 +26,33 @@ const AIInput = ({
   const [userMessage, setUserMessage] = useState("");
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isSending, setIsSending] = useState(false);
+  const queryClient = useQueryClient();
 
   const sendMessage = async () => {
     if (!userMessage.trim()) return;
 
     const currentMessages = userMessage;
+    const currentImage = selectedImage;
 
     handleRemoveImage();
     setUserMessage("");
+    setIsSending(true);
+    setIsTyping(true);
 
     const currentMsgs: IChatMessage[] = [
       ...messages,
       { role: "USER", text: currentMessages },
       { role: "ASSISTANT", text: "" },
     ];
-
     setMessages(currentMsgs);
 
     try {
-      setIsTyping(true);
       let currentSessionId = sessionIdNow;
 
-      if (!sessionIdNow) {
+      if (!currentSessionId) {
         const data = await newChatSession({ mode: selectedMode });
         currentSessionId = data.sessionId;
         navigate(`/ai/${currentSessionId}`, {
@@ -58,7 +61,12 @@ const AIInput = ({
         });
       }
 
-      const serverImage = await uploadImage(selectedImage);
+      let imageUrl = null;
+      if (currentImage) {
+        const serverImage = await uploadImage(selectedImage);
+        imageUrl = serverImage.imageUrl;
+      }
+
       const messageResponse = await fetch(aiPath.FETCHMESSAGE, {
         method: "POST",
         headers: {
@@ -67,13 +75,13 @@ const AIInput = ({
         body: JSON.stringify({
           sessionId: currentSessionId,
           userText: currentMessages,
-          imageUrl: serverImage.imageUrl,
+          imageUrl: imageUrl,
           stream: true,
         }),
         credentials: "include",
       });
 
-      if (!messageResponse.ok) throw new Error("Ошибка сервера");
+      if (!messageResponse.ok) throw new Error("Server error");
       if (!messageResponse.body) return;
 
       const reader = messageResponse.body.getReader();
@@ -98,26 +106,29 @@ const AIInput = ({
             accumulatedText += content;
 
             setMessages((prev) => {
-              const lastMessage = prev[prev.length - 1];
-
-              if (lastMessage && lastMessage.role === "ASSISTANT") {
-                return [
-                  ...prev.slice(0, -1),
-                  { ...lastMessage, text: accumulatedText },
-                ];
+              const newMessages = [...prev];
+              const lastIndex = newMessages.length - 1;
+              if (newMessages[lastIndex].role === "ASSISTANT") {
+                newMessages[lastIndex] = {
+                  ...newMessages[lastIndex],
+                  text: accumulatedText,
+                };
               }
-
-              return [...prev, { role: "ASSISTANT", text: accumulatedText }];
+              return newMessages;
             });
           } catch (e) {
-            console.error("Ошибка парсинга чанка:", e);
+            console.error("Parsing error in chunk:", e);
           }
         }
       }
+      queryClient.invalidateQueries({
+        queryKey: ["session-history", currentSessionId],
+      });
     } catch (error) {
       console.error(error);
     } finally {
       setIsTyping(false);
+      setIsSending(false);
     }
   };
 
@@ -134,7 +145,10 @@ const AIInput = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") sendMessage();
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   const handleRemoveImage = () => {
@@ -161,7 +175,11 @@ const AIInput = ({
           style={{ display: "none" }}
           accept="image/*"
         />
-        <button onClick={handleClipClick} className="clip-button">
+        <button
+          onClick={handleClipClick}
+          className="clip-button"
+          disabled={isSending}
+        >
           <Clip />
         </button>
         <input
@@ -171,9 +189,14 @@ const AIInput = ({
           placeholder="Send a message"
           type="text"
           value={userMessage}
+          disabled={isSending}
         />
         <div className="right-buttons-wrapper">
-          <button onClick={sendMessage} className="send-button">
+          <button
+            onClick={sendMessage}
+            className="send-button"
+            disabled={isSending || !userMessage.trim()}
+          >
             <Send />
           </button>
         </div>

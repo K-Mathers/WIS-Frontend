@@ -1,43 +1,18 @@
 .history-section {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .user-history {
+  flex: 1;
   overflow-y: auto;
-  max-height: 700px;
-}
-
-.session-title {
-  flex-grow: 1;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: 0;
-}
-
-.dots-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background-color: #ffde03;
-  border: 2px solid #000;
-  border-radius: 4px;
-  transition: transform 0.1s ease;
-  flex-shrink: 0;
-  box-shadow: 2px 2px 0 #000;
-}
-
-.dots-trigger:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 #000;
-}
-
-.dots-trigger:active {
-  transform: translate(1px, 1px);
-  box-shadow: 0 0 0 #000;
+  min-height: 0;
+  padding-right: 4px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .session {
@@ -50,12 +25,14 @@
   background: #fff;
   border: 2px solid #000;
   border-radius: 4px;
-  max-width: 280px;
+  width: 100%;
+  box-sizing: border-box;
   margin-bottom: 8px;
   box-shadow: 2px 2px 0 #000;
   font-family: 'Comic Neue', cursive;
   font-weight: 700;
   color: #000;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.15s ease;
 }
 
 .session:hover {
@@ -68,6 +45,48 @@
   background-color: #ffde03;
   box-shadow: 1px 1px 0 #000;
   transform: translate(1px, 1px);
+}
+
+.session-title {
+  flex-grow: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  font-size: 14px;
+}
+
+.session img {
+  flex-shrink: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+}
+
+.dots-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: #ffde03;
+  border: 2px solid #000;
+  border-radius: 4px;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  flex-shrink: 0;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.dots-trigger:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #000;
+}
+
+.dots-trigger:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 #000;
 }
 
 .comic-dropdown .ant-dropdown-menu {
@@ -88,20 +107,11 @@
 
 .comic-dropdown .ant-dropdown-menu-item:hover {
   background-color: #ffde03;
-  transform: scale(1.05);
 }
 
 .comic-dropdown .ant-dropdown-menu-item-danger:hover {
   background-color: #e74c3c;
   color: #fff;
-}
-
-.session img {
-  flex-shrink: 0;
-  display: block;
-  width: 16px;
-  height: 16px;
-  margin: 0;
 }
 
 .dark-theme .session {
@@ -159,21 +169,12 @@
   background-color: #ffde03;
 }
 
-@media (max-width: 410px) {
-  .history-section {
-    width: 100%;
-  }
-
-  .user-history {
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
-  }
-
+@media (max-width: 600px) {
   .session {
-    padding: 6px 10px;
+    padding: 8px 10px;
     gap: 6px;
-    max-width: 100%;
     border-radius: 8px;
+    margin-bottom: 6px;
   }
 
   .session-title {
@@ -181,8 +182,8 @@
   }
 
   .dots-trigger {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
   }
 
   .session img {

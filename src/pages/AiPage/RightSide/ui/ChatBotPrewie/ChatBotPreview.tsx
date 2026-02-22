@@ -7,7 +7,7 @@ const ChatBotPrewiew = () => {
     <div className="all-block">
       <div className="AI-title-block">
         <Typography className="AI-title">Chat Bot</Typography>
-        <Typography className="AI-description">Ver 1.0 Dec 1</Typography>
+        <Typography className="AI-description">Ver 1.0</Typography>
       </div>
       <div className="all-notification">
         {ChatBotPreview.map((el) => (
