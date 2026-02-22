@@ -1,7 +1,8 @@
 .sidebar-header {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
+    width: 100%;
 }
 
 .logo-open-sidebar {
@@ -35,18 +36,19 @@
 }
 
 .section-title {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     font-weight: 700;
-
     font-size: 24px;
     cursor: pointer;
-    padding: 8px 15px;
+    padding: 10px 15px;
     background: #ffde03;
     border: 3px solid #000;
     border-radius: 4px;
     box-shadow: 4px 4px 0 #000;
-    width: fit-content;
+    width: 100%;
+    text-align: center;
     color: #000;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .section-title:hover {
@@ -54,9 +56,9 @@
     box-shadow: 6px 6px 0 #000;
 }
 
-@media (max-width: 410px) {
+@media (max-width: 600px) {
     .sidebar-header {
-        gap: 15px;
+        gap: 12px;
     }
 
     .logo-open-sidebar {
@@ -66,12 +68,12 @@
 
     .section-title {
         font-size: 20px;
-        margin-bottom: 12px;
-        padding: 6px 12px;
+        margin-bottom: 8px;
+        padding: 8px 12px;
     }
 
     .main-title {
-        margin-bottom: 24px;
+        margin-bottom: 16px;
         font-size: 26px;
     }
 }

@@ -35,37 +35,41 @@ const RightSide = ({
       {messages.length === 0 ? (
         <ChatBotPrewiew />
       ) : (
-        <div className="chat-messages-container">
-          {messages.map((el, index) => (
-            <div
-              key={index}
-              className={`message-bubble ${el.role === "USER" ? "user-msg" : "ai-msg"
-                }`}
-            >
-              {el.role === "ASSISTANT" ? (
-                <ReactMarkdown>{el.text}</ReactMarkdown>
-              ) : (
-                el.text
-              )}
-            </div>
-          ))}
+        <div className="chat-scroll-wrapper" ref={scrollRef}>
+          <div className="chat-messages-container">
+            {messages.map((el, index) => (
+              <div
+                key={index}
+                className={`message-bubble ${el.role === "USER" ? "user-msg" : "ai-msg"
+                  }`}
+              >
+                {el.role === "ASSISTANT" ? (
+                  <ReactMarkdown>{el.text}</ReactMarkdown>
+                ) : (
+                  el.text
+                )}
+              </div>
+            ))}
 
-          {isTyping && (
-            <div className="typing-indicator">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          )}
+            {isTyping && (
+              <div className="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            )}
+          </div>
         </div>
       )}
-      <AIInput
-        sessionIdNow={sessionId}
-        selectedMode={selectedMode}
-        setIsTyping={setIsTyping}
-        setMessages={setMessages}
-        messages={messages}
-      />
+      <div className="ai-input-area">
+        <AIInput
+          sessionIdNow={sessionId}
+          selectedMode={selectedMode}
+          setIsTyping={setIsTyping}
+          setMessages={setMessages}
+          messages={messages}
+        />
+      </div>
     </div>
   );
 };

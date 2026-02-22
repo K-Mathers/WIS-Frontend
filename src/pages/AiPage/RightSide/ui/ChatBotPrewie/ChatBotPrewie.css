@@ -3,6 +3,10 @@
   flex-direction: column;
   gap: 48px;
   align-items: center;
+  padding: 40px 20px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .AI-title-block {
@@ -12,10 +16,11 @@
   padding: 10px 30px;
   border: 3px solid #000;
   box-shadow: 8px 8px 0 #000;
+  flex-shrink: 0;
 }
 
 .AI-title {
-  font-size: 60px;
+  font-size: clamp(32px, 6vw, 60px);
   color: #fff;
   font-family: 'Bangers', cursive;
   text-transform: uppercase;
@@ -24,7 +29,7 @@
 }
 
 .AI-description {
-  font-size: 20px;
+  font-size: clamp(14px, 2vw, 20px);
   color: #fff;
   font-family: 'Comic Neue', cursive;
   font-weight: 700;
@@ -32,47 +37,51 @@
 
 .all-notification {
   display: flex;
-  gap: 30px;
+  gap: 24px;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .notification-element {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   padding: 20px;
   border: 3px solid #000;
   background: #fff;
-  box-shadow: 10px 10px 0 #000;
+  box-shadow: 8px 8px 0 #000;
   transform: rotate(calc(var(--rotation, 0) * 1deg));
+  flex: 1 1 260px;
+  min-width: 220px;
+  max-width: 320px;
 }
 
 .notification-element:nth-child(1) {
   --rotation: -1;
-  background-color: #fff;
 }
 
 .notification-element:nth-child(2) {
   --rotation: 1;
-  background-color: #fff;
 }
 
 .notification-element:nth-child(3) {
   --rotation: -0.5;
-  background-color: #fff;
 }
 
 .icon-block {
   border-radius: 4px;
-  padding: 12px;
-  max-width: 50px;
-  width: 100%;
-  height: auto;
+  padding: 10px;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #ffde03;
   border: 2px solid #000;
-  margin: 0;
   box-shadow: 3px 3px 0 #000;
+  flex-shrink: 0;
 }
 
 .notification-block-wrapper {
@@ -82,82 +91,26 @@
   text-align: left;
   border: 2px solid #000;
   border-radius: 4px;
-  padding: 15px 20px;
-  max-width: 280px;
+  padding: 12px 16px;
   width: 100%;
   background: #fdfbf1;
-  gap: 8px;
+  gap: 6px;
   font-family: 'Comic Neue', cursive;
   font-weight: 700;
 }
 
 .first-block-title {
-  font-size: 22px;
+  font-size: 20px;
   color: #000;
-
 }
 
 .first-block-description {
-  font-size: 14px;
-  line-height: 139%;
+  font-size: 13px;
+  line-height: 1.4;
   text-decoration: underline;
   text-decoration-skip-ink: none;
   color: #000;
   font-weight: 700;
-}
-
-@media (max-width: 410px) {
-  .all-block {
-    gap: 24px;
-    padding: 20px 10px;
-    max-height: calc(100vh - 200px);
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-
-  .AI-title-block {
-    flex-shrink: 0;
-  }
-
-  .AI-title {
-    font-size: 28px;
-  }
-
-  .AI-description {
-    font-size: 14px;
-  }
-
-  .all-notification {
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-  }
-
-  .notification-element {
-    width: 100%;
-    max-width: 100%;
-    gap: 12px;
-  }
-
-  .notification-block-wrapper {
-    max-width: 100%;
-    width: 100%;
-    padding: 16px 18px;
-    gap: 10px;
-  }
-
-  .icon-block {
-    max-width: 40px;
-    padding: 10px;
-  }
-
-  .first-block-title {
-    font-size: 16px;
-  }
-
-  .first-block-description {
-    font-size: 12px;
-  }
 }
 
 .dark-theme .notification-element,
@@ -166,11 +119,6 @@
 .dark-theme .notification-element:nth-child(3) {
   background-color: #2d2d2d;
   border-color: #ffde03;
-  color: #fff;
-}
-
-.dark-theme .first-block-title,
-.dark-theme .first-block-description {
   color: #fff;
 }
 
@@ -185,6 +133,11 @@
   color: #fff;
 }
 
+.dark-theme .first-block-title,
+.dark-theme .first-block-description {
+  color: #fff;
+}
+
 .dark-theme .AI-title {
   -webkit-text-stroke: 1px #ffde03;
 }
@@ -196,4 +149,67 @@
 .dark-theme .icon-block {
   border-color: #000;
   box-shadow: 3px 3px 0 #fff;
+}
+
+@media (max-width: 900px) {
+  .all-block {
+    gap: 32px;
+    padding: 30px 16px;
+  }
+
+  .all-notification {
+    gap: 16px;
+  }
+
+  .notification-element {
+    flex: 1 1 200px;
+    padding: 16px;
+    gap: 12px;
+    transform: rotate(calc(var(--rotation, 0) * 0.5deg));
+  }
+}
+
+@media (max-width: 600px) {
+  .all-block {
+    gap: 20px;
+    padding: 20px 12px;
+    align-items: stretch;
+  }
+
+  .AI-title-block {
+    align-self: center;
+  }
+
+  .all-notification {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .notification-element {
+    min-width: unset;
+    max-width: 100%;
+    transform: none;
+    box-shadow: 4px 4px 0 #000;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .notification-block-wrapper {
+    padding: 10px 14px;
+  }
+
+  .first-block-title {
+    font-size: 16px;
+  }
+
+  .first-block-description {
+    font-size: 12px;
+  }
+
+  .icon-block {
+    width: 38px;
+    height: 38px;
+    padding: 8px;
+  }
 }

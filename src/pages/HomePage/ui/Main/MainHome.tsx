@@ -6,20 +6,10 @@ import coolColorways from "/Nike_adjust1.png";
 import walkingShoes from "/Nb_wrdp.png";
 import CustomButton from "@/components/CustomButton/CustomButton";
 import ProductCard from "./ProductCard/ProductCard";
+import { useNavigate } from "react-router-dom";
 
-interface IMainHome {
-  ref: React.Ref<HTMLDivElement>;
-}
-
-const CATEGORIES = [
-  "PREMIUM COLLECTION",
-  "BEST MINIMALS",
-  "CRAZY SHOES",
-  "NEW SHOES",
-];
-
-const MainHome = ({ ref }: IMainHome) => {
-  const [activeTab, setActiveTab] = useState("BEST MINIMALS");
+const MainHome = () => {
+  const navigate = useNavigate();
 
   return (
     <>
@@ -78,6 +68,7 @@ const MainHome = ({ ref }: IMainHome) => {
 
             <div className="flex">
               <CustomButton
+                onClick={() => navigate("/blog")}
                 textButton="START EXPLORING"
                 fz="20px"
                 padding="15px 40px"
@@ -129,68 +120,6 @@ const MainHome = ({ ref }: IMainHome) => {
                 imageSrc={walkingShoes}
                 title="The Best Walking Shoes"
                 containerClassName="z-20 transform -rotate-2"
-              />
-            </div>
-          </div>
-        </section>
-
-        <section className="pt-24 md:pt-48 pb-24 md:pb-48 relative overflow-hidden">
-          <div
-            className="flex flex-col items-center justify-center mb-16 md:mb-36 relative z-10 text-center px-4"
-            ref={ref}
-          >
-            <div className="bg-[#ffde03] border-4 border-black p-4 md:p-8 shadow-[12px_12px_0px_#000] rotate-2">
-              <p className="uppercase font-black text-4xl md:text-8xl leading-none">
-                most popular
-              </p>
-            </div>
-            <p className="text-lg md:text-2xl font-bold mt-8 bg-white dark:bg-[#2d2d2d] dark:text-white p-4 border-4 border-black shadow-[6px_6px_0px_#000] -rotate-1">
-              Here’s Our most popular articles. People tend to love whatever is
-              in here.
-            </p>
-          </div>
-
-          <div className="flex flex-col lg:flex-row justify-center items-center gap-16 w-full p-8 relative">
-            <div className="flex-1 flex flex-col justify-center items-center lg:items-end w-full max-w-[600px]">
-              <div className="font-black text-4xl md:text-5xl flex flex-col gap-6 w-full max-w-md">
-                {CATEGORIES.map((cat) => (
-                  <p
-                    key={cat}
-                    onClick={() => setActiveTab(cat)}
-                    className={`${
-                      activeTab === cat
-                        ? "bg-[#e74c3c] text-white"
-                        : "bg-white text-black dark:bg-[#2d2d2d] dark:text-white"
-                    } p-6 border-4 border-black shadow-[8px_8px_0px_#000] hover:bg-[#ffde03] hover:text-black transition-all cursor-pointer transform active:translate-x-2 active:translate-y-2 active:shadow-none`}
-                  >
-                    {cat}
-                  </p>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex-1 flex justify-center items-center relative w-full">
-              <div className="bg-[#ffde03] border-4 border-black p-12 shadow-[15px_15px_0px_#000] rotate-3 max-w-lg">
-                <p className="font-black text-5xl mb-4 italic uppercase">
-                  BOOM! 👟
-                </p>
-                <p className="text-2xl font-bold uppercase">
-                  Currently viewing category: <br />
-                  <span className="text-[#e74c3c] text-4xl block mt-2">
-                    {activeTab}
-                  </span>
-                </p>
-                <div className="mt-8 p-4 bg-white dark:bg-[#2d2d2d] dark:text-white border-4 border-black shadow-[6px_6px_0px_#000] -rotate-2">
-                  <p className="text-xl font-bold uppercase italic">
-                    "Awesome sneakers await you in this collection! Click other
-                    tabs to explore like a hero!"
-                  </p>
-                </div>
-              </div>
-              <img
-                src={star}
-                className="absolute -bottom-10 -right-10 w-24 h-24 rotate-12"
-                alt="star"
               />
             </div>
           </div>
