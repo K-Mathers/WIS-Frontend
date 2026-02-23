@@ -1,10 +1,10 @@
 import MainHome from "./ui/Main/MainHome";
 import FooterHome from "./ui/Footer/FooterHome";
 import "./HomePage.css";
-import jordanRed from "@/assets/AuthAssets/sneaker1.png";
-import sneakerBlue from "@/assets/AuthAssets/sneaker2.png";
-import burstPow from "@/assets/AuthAssets/burst_pow.png";
-import burstZap from "@/assets/AuthAssets/burst_zap.png";
+import jordan4Blue from "@/assets/HomePageAssets/sneaker_1.png";
+import adidasSamba from "@/assets/HomePageAssets/sneaker_2.png";
+import burstWow from "@/assets/HomePageAssets/burst_wow.png";
+import burstCrazy from "@/assets/HomePageAssets/burst_crazy.png";
 import ComicChat from "@/components/ComicChat/ComicChat";
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 import Header from "../../components/Header/Header";
@@ -19,8 +19,7 @@ const HomePage = () => {
         <div className="start-btn-block">
           <CustomButton
             textButton="START"
-            fz="48px"
-            padding="30px 100px"
+            className="home-start-btn"
             backgroundColor="#ffde03"
             textColor="#000"
             boxShadow="10px 10px 0px #000"
@@ -32,10 +31,10 @@ const HomePage = () => {
       </header>
 
       <div className="home-content-wrapper">
-        <img src={jordanRed} className="comic-decoration decor-top-left" />
-        <img src={sneakerBlue} className="comic-decoration decor-top-right" />
-        <img src={burstPow} className="comic-decoration decor-bottom-left" />
-        <img src={burstZap} className="comic-decoration decor-bottom-right" />
+        <img src={jordan4Blue} className="comic-decoration decor-top-left" />
+        <img src={adidasSamba} className="comic-decoration decor-top-right" />
+        <img src={burstWow} className="comic-decoration decor-bottom-left" />
+        <img src={burstCrazy} className="comic-decoration decor-bottom-right" />
         <MainHome />
       </div>
 

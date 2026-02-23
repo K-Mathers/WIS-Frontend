@@ -1,45 +1,25 @@
 import { useParams, useNavigate } from "react-router-dom";
 import "./BlogCategory.css";
 import { getPublicBlog } from "@/api/blog";
-import { useEffect, useMemo, useState } from "react";
-import type { IBlog } from "@/components/BlogPage/type/type";
+import type { IData } from "@/components/BlogPage/type/type";
+import { useQuery } from "@tanstack/react-query";
 
 const BlogCategory = () => {
-  const [blogsList, setBlogsList] = useState<IBlog | null>(null);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-
   const { categoryName } = useParams<{ categoryName?: string }>();
 
-  const filteredBlog = useMemo(() => {
-    if (!blogsList?.data) return [];
+  const { data: filteredBlogs, isLoading } = useQuery({
+    queryKey: ["public-blogs"],
+    queryFn: getPublicBlog,
+    select: (blogs) => {
+      if (!blogs?.data) return [];
+      if (!categoryName) return blogs.data;
+      return blogs.data.filter((el: IData) => el.category === categoryName);
+    },
+  });
 
-    if (!categoryName) {
-      return blogsList.data;
-    }
-
-    return blogsList.data.filter((el) => el.category === categoryName);
-  }, [blogsList?.data, categoryName]);
-  console.log(blogsList);
-
-  const getBlogs = async () => {
-    setLoading(true);
-    try {
-      const response = await getPublicBlog();
-      console.log(response);
-      setBlogsList(response);
-    } catch (err) {
-      console.error("Ошибка при загрузке блога:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getBlogs();
-  }, []);
-
-  if (loading) {
+  const blogs = filteredBlogs || [];
+    
+  if (isLoading) {
     return (
       <div className="blog-category-container">
         <div className="comic-loader">LOADING ARTICLES... ZZZAP!</div>
@@ -47,7 +27,7 @@ const BlogCategory = () => {
     );
   }
 
-  if (filteredBlog.length === 0) {
+  if (blogs.length === 0) {
     return (
       <div className="blog-category-container">
         <div className="comic-empty-card">
@@ -61,12 +41,10 @@ const BlogCategory = () => {
   return (
     <div className="blog-category-container">
       <h1 className="category-header">
-        <span className="category-subheader">
-          {filteredBlog.length} ARTICLES!
-        </span>
+        <span className="category-subheader">{blogs.length} ARTICLES!</span>
       </h1>
       <section className="cards-section">
-        {filteredBlog.map((el) => {
+        {blogs.map((el: IData) => {
           return (
             <div
               onClick={() => navigate(`/blog/${el.id}`)}
