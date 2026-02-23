@@ -1,5 +1,5 @@
+import type { ISVGType } from "@/types/SVGTypes";
 import React from "react";
-import type { ISVGType } from "../../../types/SVGTypes";
 
 const LogoSVG: React.FC<ISVGType> = ({ width = "42", height = "42" }) => {
   return (

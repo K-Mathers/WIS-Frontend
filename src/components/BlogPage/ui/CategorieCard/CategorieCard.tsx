@@ -3,9 +3,12 @@ import "./CategorieCard.css";
 import { getPublicBlog } from "@/api/blog";
 import type { IBlog, IBlogMapping } from "../../type/type";
 import { CATEGORY_KEYS } from "@/const/blogCategory";
+import { useNavigate } from "react-router-dom";
 
 const CategorieCard = () => {
   const [blogsList, setBlogsList] = useState<IBlog>();
+
+  const navigate = useNavigate();
 
   const latestByCategory = useMemo(() => {
     if (!blogsList?.data) return {};
@@ -39,9 +42,12 @@ const CategorieCard = () => {
     <section className="cards-section">
       {CATEGORY_KEYS.map(({ key, label }) => {
         const article = latestByCategory[key];
-
         return (
-          <div className="card" key={key}>
+          <div
+            onClick={() => navigate(`/blog/${article?.id}`)}
+            className="card"
+            key={key}
+          >
             <div className="upper-part">
               <p className="card-title">{label}</p>
 

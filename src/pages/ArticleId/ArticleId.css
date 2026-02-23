@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Bangers&display=swap');
+
+.article-page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #fdfbf1;
+    background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
+    background-size: 20px 20px;
+    font-family: 'Comic Neue', cursive;
+}
+
+.article-content {
+    flex: 1;
+    max-width: 900px;
+    width: 95%;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.article-card-news {
+    max-width: 900px;
+    width: 100%;
+    background-color: #fff;
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0px #000;
+    padding: 40px;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.article-header {
+    margin-bottom: 30px;
+    border-bottom: 2px dashed #000;
+    padding-bottom: 20px;
+}
+
+.article-title {
+    font-family: 'Bangers', cursive;
+    font-size: 2rem;
+    line-height: 1.1;
+    color: #000;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px #ffde03;
+}
+
+.article-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    border: 2px solid #000;
+    background-color: #ffde03;
+    padding: 10px;
+    box-shadow: 4px 4px 0px #000;
+}
+
+.article-image-container {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 30px;
+    border: 4px solid #000;
+    overflow: hidden;
+    position: relative;
+}
+
+.article-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.article-image:hover {
+    transform: scale(1.05);
+}
+
+.article-body {
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.article-body p {
+    margin-bottom: 20px;
+}
+
+.comments-section {
+    background-color: #fff;
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0px #000;
+    padding: 30px;
+}
+
+.comments-title {
+    font-family: 'Bangers', cursive;
+    font-size: 3rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    border-bottom: 4px solid #000;
+    display: inline-block;
+    padding-right: 20px;
+    background-color: #ff4500;
+    color: #fff;
+    padding: 5px 15px;
+    transform: rotate(-2deg);
+    box-shadow: 4px 4px 0px #000;
+}
+
+.comments-title-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.comment-reactions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.reaction-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Bangers', cursive;
+    font-size: 1.4rem;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.reaction-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.reaction-button.like-btn:hover {
+    color: #27ae60;
+    transform: scale(1.15) rotate(-5deg);
+}
+
+.reaction-button.like-btn:active {
+    transform: scale(0.8) rotate(-15deg);
+}
+
+.reaction-button.like-btn.active {
+    color: #27ae60;
+}
+
+.reaction-button.dislike-btn:hover {
+    color: #e74c3c;
+    transform: scale(1.15) rotate(5deg);
+}
+
+.reaction-button.dislike-btn:active {
+    transform: scale(0.8) rotate(15deg);
+}
+
+.reaction-button.dislike-btn.active {
+    color: #e74c3c;
+}
+
+.comment-item {
+    margin: 0;
+}
+
+.comment-avatar {
+    width: 60px;
+    height: 60px;
+    background-color: #000;
+    border: 3px solid #000;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.comment-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.comment-bubble {
+    background-color: #f0f0f0;
+    border: 3px solid #000;
+    padding: 20px;
+    position: relative;
+    border-radius: 15px;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.comment-bubble::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 20px solid #000;
+}
+
+.comment-bubble::after {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 23px;
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 17px solid #f0f0f0;
+}
+
+.comment-author {
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    color: #e74c3c;
+}
+
+.comment-text {
+    font-size: 1.1rem;
+}
+
+.comment-form {
+    border-top: 2px dashed #000;
+    padding-top: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.comic-input {
+    width: 100%;
+    padding: 15px;
+    font-family: 'Comic Neue', cursive;
+    font-size: 1.2rem;
+    border: 3px solid #000;
+    background-color: #fff;
+    transition: box-shadow 0.2s;
+    outline: none;
+}
+
+.comic-input:focus {
+    box-shadow: 6px 6px 0px #ffde03;
+}
+
+.comic-button {
+    background-color: #3498db;
+    color: #fff;
+    font-family: 'Bangers', cursive;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    padding: 15px 40px;
+    border: 3px solid #000;
+    cursor: pointer;
+    box-shadow: 5px 5px 0px #000;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+}
+
+.comic-button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px #000;
+    background-color: #2980b9;
+}
+
+.comic-button:active {
+    transform: translate(2px, 2px);
+    box-shadow: 3px 3px 0px #000;
+}
+
+.dark-theme .article-page-container {
+    background-color: #121212;
+    background-image: radial-gradient(#333 1.2px, transparent 1.2px);
+}
+
+.dark-theme .article-card-news,
+.dark-theme .comments-section,
+.dark-theme .comic-input {
+    background-color: #1e1e1e;
+    border-color: #e0e0e0;
+    box-shadow: 10px 10px 0px #333;
+}
+
+.dark-theme .article-title {
+    color: #ffde03;
+    text-shadow: 2px 2px 0px #e74c3c;
+}
+
+.dark-theme .article-body,
+.dark-theme .comment-text {
+    color: #ddd;
+}
+
+.dark-theme .reaction-button {
+    color: #ddd;
+}
+
+.dark-theme .reaction-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .article-meta {
+    background-color: #333;
+    color: #ffde03;
+    border-color: #e0e0e0;
+    box-shadow: 4px 4px 0px #555;
+}
+
+.dark-theme .comment-bubble {
+    background-color: #2a2a2a;
+    border-color: #e0e0e0;
+    box-shadow: 5px 5px 0px rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .comment-bubble::before {
+    border-right-color: #e0e0e0;
+}
+
+.dark-theme .comment-bubble::after {
+    border-right-color: #2a2a2a;
+}
+
+.dark-theme .comic-input {
+    color: #fff;
+}
+
+.dark-theme .comic-input:focus {
+    box-shadow: 6px 6px 0px #e74c3c;
+}
+
+@media (max-width: 768px) {
+    .article-title {
+        font-size: 2.5rem;
+    }
+
+    .article-image-container {
+        height: 250px;
+    }
+
+    .article-content {
+        margin: 20px auto;
+    }
+
+    .article-card,
+    .comments-section {
+        padding: 20px;
+    }
+}

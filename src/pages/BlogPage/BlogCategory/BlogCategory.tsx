@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./BlogCategory.css";
 import { getPublicBlog } from "@/api/blog";
 import type { IData } from "@/components/BlogPage/type/type";
@@ -18,7 +18,7 @@ const BlogCategory = () => {
   });
 
   const blogs = filteredBlogs || [];
-
+    
   if (isLoading) {
     return (
       <div className="blog-category-container">
@@ -46,7 +46,11 @@ const BlogCategory = () => {
       <section className="cards-section">
         {blogs.map((el: IData) => {
           return (
-            <div className="card" key={el.id}>
+            <div
+              onClick={() => navigate(`/blog/${el.id}`)}
+              className="card"
+              key={el.id}
+            >
               <div className="upper-part">
                 <img src={el.coverImage} className="soon-image" alt="cover" />
                 <p className="card-description">{el.title}</p>

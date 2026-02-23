@@ -17,20 +17,31 @@ interface IAuthor {
   email: string;
 }
 export interface IData {
+  id: string;
   author: IAuthor;
   category: string;
   coverImage: string;
   createdAt: string;
-  id: string;
   publishedAt: string;
   shortDescription: string;
   slug: string;
   title: string;
   views: number;
+  content: string;
 }
 export interface IBlog {
   data: IData[];
   meta: IMeta;
+}
+
+export interface ICommentState {
+  id: string;
+  likes: number;
+  dislikes: number;
+  myReaction: null | "LIKE" | "DISLIKE";
+  content: string;
+  createdAt: string;
+  author: IAuthor;
 }
 
 export type IBlogMapping = Record<string, IData | undefined>;
