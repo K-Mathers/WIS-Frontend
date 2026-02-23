@@ -1,9 +1,8 @@
-import { useState } from "react";
 import star from "/Star_1.png";
 import star2 from "/Star_2.png";
-import legendarySneakers from "/Adidas_SuperStar.png";
-import coolColorways from "/Nike_adjust1.png";
-import walkingShoes from "/Nb_wrdp.png";
+import allArticlesIMG from "/allArticles.jpg";
+import premCollectionIMG from "/premCollection.jpg";
+import crazyShoesIMG from "/crazyShoes.jpg";
 import CustomButton from "@/components/CustomButton/CustomButton";
 import ProductCard from "./ProductCard/ProductCard";
 import { useNavigate } from "react-router-dom";
@@ -105,20 +104,20 @@ const MainHome = () => {
               />
 
               <ProductCard
-                imageSrc={legendarySneakers}
-                title="The Legendary Sneakers"
+                imageSrc={allArticlesIMG}
+                title="ALL ARTICLES"
                 containerClassName="z-20 transform -rotate-1"
               />
 
               <ProductCard
-                imageSrc={coolColorways}
-                title="The Cool Colorways"
+                imageSrc={premCollectionIMG}
+                title="PREMIUM COLLECTION"
                 containerClassName="z-20 transform rotate-2 md:-translate-y-12"
               />
 
               <ProductCard
-                imageSrc={walkingShoes}
-                title="The Best Walking Shoes"
+                imageSrc={crazyShoesIMG}
+                title="CRAZY SHOES"
                 containerClassName="z-20 transform -rotate-2"
               />
             </div>
