@@ -1,14 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import "./CategorieCard.css";
 import { getPublicBlog } from "@/api/blog";
-import type { IBlog, IBlogMapping } from "../../type/type";
+import type { IBlogMapping } from "../../type/type";
 import { CATEGORY_KEYS } from "@/const/blogCategory";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 const CategorieCard = () => {
-  const [blogsList, setBlogsList] = useState<IBlog>();
-
   const navigate = useNavigate();
+
+  const { data: blogsList, isLoading } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: getPublicBlog,
+    staleTime: 1000 * 60 * 5,
+  });
 
   const latestByCategory = useMemo(() => {
     if (!blogsList?.data) return {};
@@ -26,17 +31,7 @@ const CategorieCard = () => {
     return mapping;
   }, [blogsList]);
 
-  const getBlogs = async () => {
-    const response = await getPublicBlog();
-    setBlogsList(response);
-  };
-
-  useEffect(() => {
-    getBlogs();
-  }, []);
-
-  if (!blogsList)
-    return <div className="comic-loader">LOADING ARTICLES...</div>;
+  if (isLoading) return <div className="comic-loader">LOADING ARTICLES...</div>;
 
   return (
     <section className="cards-section">

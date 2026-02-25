@@ -1,5 +1,9 @@
-import { changePassword } from "@/api/auth";
 import type { IPasswordData } from "../../type/types";
+import {
+  errorNotification,
+  successNotification,
+} from "@/utils/notification/notification";
+import { useSaveResetPasswordMutation } from "@/hooks/Mutations/authMutations";
 
 interface ISecurityPage {
   activeTab: string;
@@ -12,28 +16,37 @@ const SecurityPage = ({
   passwordData,
   setPasswordData,
 }: ISecurityPage) => {
+  const saveResetPassword = useSaveResetPasswordMutation();
+
   const handleSaveResetPass = async () => {
     const { currentPassword, newPassword, confirmPassword } = passwordData;
+
     if (!currentPassword || !newPassword || !confirmPassword) {
-      alert("Enter all");
+      errorNotification("Enter all");
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      alert("Passwords don't exit's");
+      errorNotification("Passwords don't exit's");
       return;
     }
 
-    try {
-      await changePassword({ currentPassword, newPassword });
-      setPasswordData({
-        currentPassword: "",
-        newPassword: "",
-        confirmPassword: "",
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    saveResetPassword.mutate(
+      { currentPassword, newPassword },
+      {
+        onSuccess: () => {
+          setPasswordData({
+            currentPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+          });
+          successNotification("Password changed successfully");
+        },
+        onError: () => {
+          errorNotification("Error current password");
+        },
+      },
+    );
   };
 
   return (
