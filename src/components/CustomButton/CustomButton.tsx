@@ -19,6 +19,7 @@ interface ICustomButton {
   borderRadius?: string;
   maxWidth?: string;
   hoverTransform?: string;
+  className?: string;
   onClick?: () => void;
 }
 
@@ -40,6 +41,7 @@ const CustomButton: React.FC<ICustomButton> = ({
   borderRadius = "5px",
   maxWidth = "100%",
   hoverTransform,
+  className,
   onClick,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -68,6 +70,7 @@ const CustomButton: React.FC<ICustomButton> = ({
   return (
     <div>
       <button
+        className={className}
         onClick={() => navigate("/login")}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

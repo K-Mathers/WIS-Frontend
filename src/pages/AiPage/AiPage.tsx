@@ -8,33 +8,31 @@ import type { IServerMessage } from "@/types/SessionsDataTypes";
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 import Header from "@/components/Header/Header";
 import AuthLocked from "@/components/AuthLocked/AuthLocked";
+import { useQuery } from "@tanstack/react-query";
 
 const AiPage = () => {
   const [selectedMode, setSelectedMode] = useState("CREATIVE");
   const [messages, setMessages] = useState<IChatMessage[]>([]);
-
   const { sessionId } = useParams();
   const location = useLocation();
-
   const { isAuthenticated } = useAuth();
 
-  const loadHistory = async (id: string) => {
-    try {
-      const data = await getSpecificSessionsDetail(id);
-      const formattedHistory = data.messages.map((el: IServerMessage) => ({
+  const {
+    data: historyData,
+    isPending,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["session-history", sessionId],
+    queryFn: () => getSpecificSessionsDetail(sessionId as string),
+    enabled: !!sessionId,
+    select: (data) => {
+      return data.messages.map((el: IServerMessage) => ({
         role: el.role,
         text: el.content,
       }));
-      setMessages((prev) => {
-        if (prev.length > 0 && formattedHistory.length === 0) {
-          return prev;
-        }
-        return formattedHistory;
-      });
-    } catch (error) {
-      console.error("Ошибка загрузки истории:", error);
-    }
-  };
+    },
+  });
 
   useEffect(() => {
     const stateMessages = location.state?.preserveMessages;
@@ -44,12 +42,16 @@ const AiPage = () => {
       return;
     }
 
-    if (sessionId) {
-      loadHistory(sessionId);
-    } else {
+    if (historyData) {
+      setMessages(historyData);
+    } else if (!sessionId) {
       setMessages([]);
     }
-  }, [sessionId, location.state, location.pathname]);
+  }, [historyData, sessionId, location.state, location.pathname]);
+
+  if (isPending && !!sessionId) return <div className="comic-loader">LOADING DOSSIER...</div>;
+  if (isError)
+    return <div className="error">Error loading data: {error.message}</div>;
 
   return (
     <div className="ai-page-layout">

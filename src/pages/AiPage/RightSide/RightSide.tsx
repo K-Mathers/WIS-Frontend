@@ -54,22 +54,25 @@ const RightSide = ({
             </div>
           ))}
 
-          {isTyping && (
-            <div className="typing-indicator">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          )}
+            {isTyping && (
+              <div className="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            )}
+          </div>
         </div>
       )}
-      <AIInput
-        sessionIdNow={sessionId}
-        selectedMode={selectedMode}
-        setIsTyping={setIsTyping}
-        setMessages={setMessages}
-        messages={messages}
-      />
+      <div className="ai-input-area">
+        <AIInput
+          sessionIdNow={sessionId}
+          selectedMode={selectedMode}
+          setIsTyping={setIsTyping}
+          setMessages={setMessages}
+          messages={messages}
+        />
+      </div>
     </div>
   );
 };

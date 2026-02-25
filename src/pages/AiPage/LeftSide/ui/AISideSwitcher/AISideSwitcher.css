@@ -4,10 +4,9 @@
   background-color: #ffde03;
   padding: 4px;
   border-radius: 4px;
-  max-width: 260px;
   width: 100%;
   border: 3px solid #000;
-  margin-bottom: 45px;
+  margin-bottom: 20px;
   box-shadow: 4px 4px 0 #000;
 }
 
@@ -56,17 +55,15 @@
   transform: translateX(101%);
 }
 
-@media (max-width: 410px) {
+@media (max-width: 600px) {
   .switcher-track {
-    max-width: 100%;
-    width: 100%;
     padding: 3px;
-    margin-bottom: 30px;
+    margin-bottom: 16px;
     border-radius: 6px;
   }
 
   .switcher-button {
-    padding: 6px 16px;
+    padding: 6px 12px;
     font-size: 13px;
     gap: 6px;
   }
