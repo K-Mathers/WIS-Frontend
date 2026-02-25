@@ -1,12 +1,16 @@
 import { useParams, useNavigate } from "react-router-dom";
 import "./BlogCategory.css";
 import { getPublicBlog } from "@/api/blog";
-import { useEffect, useMemo, useState } from "react";
-import type { IBlog } from "@/components/BlogPage/type/type";
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 const BlogCategory = () => {
-  const [blogsList, setBlogsList] = useState<IBlog | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: blogsList, isLoading } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: getPublicBlog,
+    staleTime: 1000 * 60 * 5,
+  });
+
   const navigate = useNavigate();
 
   const { categoryName } = useParams<{ categoryName?: string }>();
@@ -20,26 +24,8 @@ const BlogCategory = () => {
 
     return blogsList.data.filter((el) => el.category === categoryName);
   }, [blogsList?.data, categoryName]);
-  console.log(blogsList);
 
-  const getBlogs = async () => {
-    setLoading(true);
-    try {
-      const response = await getPublicBlog();
-      console.log(response);
-      setBlogsList(response);
-    } catch (err) {
-      console.error("Ошибка при загрузке блога:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getBlogs();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="blog-category-container">
         <div className="comic-loader">LOADING ARTICLES... ZZZAP!</div>

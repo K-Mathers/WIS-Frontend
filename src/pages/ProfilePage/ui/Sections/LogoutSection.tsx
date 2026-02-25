@@ -1,5 +1,5 @@
-import { logoutUser } from "@/api/auth";
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
+import { useLogoutMutation } from "@/hooks/Mutations/authMutations";
 import { useNavigate } from "react-router-dom";
 
 interface ILogoutPage {
@@ -10,14 +10,15 @@ const LogoutPage = ({ activeTab }: ILogoutPage) => {
   const { refreshAuth } = useAuth();
   const navigate = useNavigate();
 
+  const useLogout = useLogoutMutation();
+
   const handleLogout = async () => {
-    try {
-      await logoutUser();
-      await refreshAuth();
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-    }
+    useLogout.mutate(undefined, {
+      onSuccess: async () => {
+        await refreshAuth();
+        navigate("/");
+      },
+    });
   };
 
   return (

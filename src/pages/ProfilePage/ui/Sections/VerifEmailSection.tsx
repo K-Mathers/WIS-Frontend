@@ -1,43 +1,51 @@
-import { getUser, sendCode, verifyCode } from "@/api/auth";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import type { IFormData } from "../../type/types";
+import {
+  useSendVerifCodeMutation,
+  useVerifyEmailConfirmMutation,
+} from "@/hooks/Mutations/authMutations";
 
 interface IVerifEmailPage {
   activeTab: string;
   verifStep: number;
   setVerifStep: Dispatch<SetStateAction<number>>;
   formData: IFormData;
-  setFormData: React.Dispatch<React.SetStateAction<IFormData>>;
 }
 
 const VerifEmailPage = ({
   activeTab,
   verifStep,
-  setVerifStep,
   formData,
-  setFormData,
+  setVerifStep,
 }: IVerifEmailPage) => {
   const [verifCode, setVerifCode] = useState("");
 
-  const handleSendVerifCode = async () => {
-    try {
-      await sendCode({ email: formData.email });
-      setVerifStep(2);
-    } catch (err) {
-      console.error(err);
-    }
+  const sendVerifCode = useSendVerifCodeMutation();
+  const verifyEmailConfirm = useVerifyEmailConfirmMutation();
+
+  const handleSendVerifCode = () => {
+    useSendVerifCode.mutate(
+      { email: formData.email },
+      {
+        onSuccess: () => {
+          setVerifStep(2);
+        },
+      },
+    );
   };
 
-  const handleVerifyEmailConfirm = async () => {
-    try {
-      await verifyCode({ email: formData.email, code: verifCode });
-      setVerifStep(1);
-      const data = await getUser();
-      setFormData(data);
-    } catch (err) {
-      console.error(err);
-    }
+  const handleVerifyEmailConfirm = () => {
+    useVerifyEmailConfirm.mutate(
+      { email: formData.email, code: verifCode },
+      {
+        onSuccess: () => {
+          setVerifStep(1);
+          setVerifCode("");
+        },
+      },
+    );
   };
+
   return (
     <div>
       {activeTab === "verifEmail" && (

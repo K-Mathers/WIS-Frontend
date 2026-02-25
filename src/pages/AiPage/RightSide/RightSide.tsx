@@ -2,7 +2,7 @@ import AIInput from "./ui/AIInput/AIInput";
 import ChatBotPrewiew from "./ui/ChatBotPrewie/ChatBotPreview";
 import "./RightSide.css";
 import { useEffect, useRef, useState } from "react";
-import ReactMarkdown from "react-markdown";
+import { marked } from "marked";
 interface IRightSide {
   sessionId: string | undefined;
   selectedMode: string;
@@ -39,11 +39,15 @@ const RightSide = ({
           {messages.map((el, index) => (
             <div
               key={index}
-              className={`message-bubble ${el.role === "USER" ? "user-msg" : "ai-msg"
-                }`}
+              className={`message-bubble ${
+                el.role === "USER" ? "user-msg" : "ai-msg"
+              }`}
             >
               {el.role === "ASSISTANT" ? (
-                <ReactMarkdown>{el.text}</ReactMarkdown>
+                <div
+                  className="markdown-body"
+                  dangerouslySetInnerHTML={{ __html: marked.parse(el.text) }}
+                />
               ) : (
                 el.text
               )}

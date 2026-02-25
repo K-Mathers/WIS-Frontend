@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./Article.css";
 import { getPendingArticle, moderateArticle } from "@/api/admin";
-import ReactMarkdown from "react-markdown";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { marked } from "marked";
 
 interface IAuthor {
   id: string;
@@ -169,9 +169,12 @@ const Article = () => {
                   <span className="section-header">
                     FULL INTEL (Safe Preview):
                   </span>
-                  <div className="html-preview">
-                    <ReactMarkdown>{art.content}</ReactMarkdown>
-                  </div>
+                  <div
+                    className="markdown-body"
+                    dangerouslySetInnerHTML={{
+                      __html: marked.parse(art.content),
+                    }}
+                  />
                 </div>
 
                 <div className="debug-id">CASE ID: {art.id}</div>
