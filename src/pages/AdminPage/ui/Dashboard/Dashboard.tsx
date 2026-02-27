@@ -1,38 +1,34 @@
 import { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { getDashboard } from "@/api/admin";
-import type { IDashboardData, ITask } from "@/api/admin/types";
+import type { ITask } from "@/api/admin/types";
 import MissionModal from "./MissionModal";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const Dashboard = () => {
-  const queryClient = useQueryClient()
-  const [dashData, setDashData] = useState<IDashboardData>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<ITask | null>(null);
 
-  const getDashboardStats = async () => {
-    try {
-      const data = await getDashboard();
-      setDashData(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getDashboardStats();
-  }, []);
+  const {
+    data: dashData,
+    isLoading,
+  } = useQuery({
+    queryKey: ["stats"],
+    queryFn: getDashboard,
+    staleTime: 1000 * 60 * 5,
+  });
 
   const handleCreateMission = () => {
     setSelectedTask(null);
     setIsModalOpen(true);
-  }
+  };
 
   const handleEditMission = (task: ITask) => {
-    setSelectedTask(task)
-    setIsModalOpen(true)
-  }
+    setSelectedTask(task);
+    setIsModalOpen(true);
+  };
+
+  if (isLoading) return <div className="loader">Loading...</div>;
 
   return (
     <main className="comic-main">
@@ -54,7 +50,9 @@ const Dashboard = () => {
       <section className="comic-panel table-panel">
         <div className="panel-header">
           <h2>RECENT MISSIONS (TASKS)</h2>
-          <button className="comic-btn" onClick={handleCreateMission}>CREATE MISSION</button>
+          <button className="comic-btn" onClick={handleCreateMission}>
+            CREATE MISSION
+          </button>
         </div>
         <table className="comic-table">
           <thead>
@@ -76,7 +74,12 @@ const Dashboard = () => {
                   </span>
                 </td>
                 <td>
-                  <button className="comic-btn" onClick={() => handleEditMission(task)}>VIEW</button>
+                  <button
+                    className="comic-btn"
+                    onClick={() => handleEditMission(task)}
+                  >
+                    VIEW
+                  </button>
                 </td>
               </tr>
             ))}
@@ -93,7 +96,6 @@ const Dashboard = () => {
       <MissionModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSuccess={getDashboardStats}
         task={selectedTask}
       />
     </main>
