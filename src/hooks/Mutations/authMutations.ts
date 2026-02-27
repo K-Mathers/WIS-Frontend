@@ -1,7 +1,9 @@
 import {
   changePassword,
   forgotPassword,
+  loginUser,
   logoutUser,
+  registrationUser,
   resetPassword,
   sendCode,
   verifyCode,
@@ -82,6 +84,26 @@ export const useSaveResetPasswordMutation = () => {
     },
     onError: (err) => {
       console.error("Ошибка при отправке кода:", err);
+    },
+  });
+};
+
+export const useLoginMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: loginUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  });
+};
+
+export const useRegistrationMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: registrationUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
 };

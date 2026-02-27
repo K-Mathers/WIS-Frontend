@@ -1,38 +1,26 @@
 import React, { useEffect, useState } from "react";
-
 import { getUser } from "@/api/auth";
 import { AuthContext } from "./AuthContext/AuthContext";
-import type { IUserData } from "@/types/UserTypes";
+import { useQuery } from "@tanstack/react-query";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<IUserData | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const {
+    data: user,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["user"],
+    queryFn: getUser,
+    staleTime: 1000 * 60 * 5,
+  });
 
-  const refreshAuth = async () => {
-    setIsLoading(true);
-    try {
-      const data = await getUser();
-      setUser(data);
-      setIsAuthenticated(true);
-    } catch (error) {
-      setUser(null);
-      setIsAuthenticated(false);
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    refreshAuth();
-  }, []);
+  const isAuthenticated = !!user;
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, refreshAuth, isLoading }}
+      value={{ isAuthenticated, user, refreshAuth: refetch, isLoading }}
     >
       {children}
     </AuthContext.Provider>

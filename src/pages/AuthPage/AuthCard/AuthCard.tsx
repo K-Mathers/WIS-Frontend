@@ -1,6 +1,5 @@
 import { GlassCard } from "../GlassCard/GlassCard";
 import "./AuthCard.css";
-import { loginUser, registrationUser } from "@/api/auth";
 import { Link, useNavigate } from "react-router-dom";
 import {
   loginSchema,
@@ -17,6 +16,10 @@ import {
 } from "@/utils/notification/notification";
 import { useEffect } from "react";
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
+import {
+  useLoginMutation,
+  useRegistrationMutation,
+} from "@/hooks/Mutations/authMutations";
 
 type AuthCard = {
   type: "login" | "register";
@@ -26,8 +29,9 @@ type FormData = loginSchemaType & Partial<registerSchemaType>;
 
 const AuthCard = ({ type = "login" }: AuthCard) => {
   const navigate = useNavigate();
-
-  const { isAuthenticated, refreshAuth } = useAuth();
+  const { isAuthenticated } = useAuth();
+  const loginUserMutation = useLoginMutation();
+  const registrationUserMutation = useRegistrationMutation();
 
   const {
     register: formRegister,
@@ -37,28 +41,43 @@ const AuthCard = ({ type = "login" }: AuthCard) => {
     resolver: zodResolver(type === "login" ? loginSchema : registerSchema),
   });
 
+  const isLogin = type === "login";
+  const isPending =
+    loginUserMutation.isPending || registrationUserMutation.isPending;
+
   const onSubmit = async (data: FormData) => {
-    const isLogin = type === "login";
-    const successMsg = isLogin
-      ? "Login successful!"
-      : "Registration successful!";
-    const errorMsg = isLogin ? "Login failed" : "Registration failed.";
-    try {
-      if (isLogin) {
-        await loginUser({ email: data.email, password: data.password });
-      } else {
-        await registrationUser({
+    if (isLogin) {
+      loginUserMutation.mutate(
+        { email: data.email, password: data.password },
+        {
+          onSuccess: () => {
+            successNotification("Login success!");
+            navigate("/profile");
+          },
+          onError: (err) => {
+            errorNotification("Login failed");
+            console.error("Login Error:", err);
+          },
+        },
+      );
+    } else {
+      registrationUserMutation.mutate(
+        {
           email: data.email,
           password: data.password,
           confirmPassword: data.confirmPassword!,
-        });
-      }
-      await refreshAuth();
-      successNotification(successMsg);
-      setTimeout(() => navigate("/profile"), 800);
-    } catch (err) {
-      errorNotification(errorMsg);
-      console.error("Auth err:", err);
+        },
+        {
+          onSuccess: () => {
+            successNotification("Registration success!");
+            navigate("/profile");
+          },
+          onError: (err) => {
+            errorNotification("Registration failed");
+            console.error("Registration Error:", err);
+          },
+        },
+      );
     }
   };
 
@@ -88,8 +107,9 @@ const AuthCard = ({ type = "login" }: AuthCard) => {
               <input
                 {...formRegister("email")}
                 placeholder="username@gmail.com"
-                className={`auth-card__input ${errors.email ? "input-error" : ""
-                  }`}
+                className={`auth-card__input ${
+                  errors.email ? "input-error" : ""
+                }`}
               />
               {errors.email && (
                 <span className="field-error">{errors.email.message}</span>
@@ -103,8 +123,9 @@ const AuthCard = ({ type = "login" }: AuthCard) => {
               <input
                 type="password"
                 {...formRegister("password")}
-                className={`auth-card__input ${errors.password ? "input-error" : ""
-                  }`}
+                className={`auth-card__input ${
+                  errors.password ? "input-error" : ""
+                }`}
                 placeholder="Password"
               />
               {errors.password && (
@@ -120,8 +141,9 @@ const AuthCard = ({ type = "login" }: AuthCard) => {
                 <input
                   type="password"
                   {...formRegister("confirmPassword")}
-                  className={`auth-card__input ${errors.confirmPassword ? "input-error" : ""
-                    }`}
+                  className={`auth-card__input ${
+                    errors.confirmPassword ? "input-error" : ""
+                  }`}
                   placeholder="Repeat Password"
                 />
                 {errors.confirmPassword && (
@@ -141,8 +163,16 @@ const AuthCard = ({ type = "login" }: AuthCard) => {
             )}
 
             <div className="auth-card__button-wrapper">
-              <button type="submit" className="auth-card__button">
-                {type === "login" ? "Sign in" : "Sign up"}
+              <button
+                type="submit"
+                className="auth-card__button"
+                disabled={isPending}
+              >
+                {isPending
+                  ? "Loading..."
+                  : type === "login"
+                    ? "Sign in"
+                    : "Sign up"}
               </button>
             </div>
 

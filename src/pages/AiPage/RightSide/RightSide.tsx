@@ -54,14 +54,13 @@ const RightSide = ({
             </div>
           ))}
 
-            {isTyping && (
-              <div className="typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            )}
-          </div>
+          {isTyping && (
+            <div className="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          )}
         </div>
       )}
       <div className="ai-input-area">
