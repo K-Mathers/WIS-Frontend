@@ -1,55 +1,57 @@
 import { useParams } from "react-router-dom";
 import "./ArticleId.css";
 import { getPublicBlog } from "@/api/blog";
-import { useEffect, useMemo, useState } from "react";
-import type { IBlog, ICommentState } from "@/components/BlogPage/type/type";
+import { useMemo, useState } from "react";
+import type { ICommentState } from "@/components/BlogPage/type/type";
 import Header from "@/components/Header/Header";
 import FooterHome from "../HomePage/ui/Footer/FooterHome";
 import LikeSVG from "@/assets/ArticleId/LikeSVG";
 import DislikeSVG from "@/assets/ArticleId/DislikeSVG";
+import { getCommentsForAnArticle } from "@/api/article";
+import { useQuery } from "@tanstack/react-query";
+import { marked } from "marked";
 import {
-  createComment,
-  getCommentsForAnArticle,
-  reactComment,
-} from "@/api/article";
+  useCreateCommentMutatuin,
+  useReactCommentMutation,
+} from "@/hooks/Mutations/articleMutations";
 
 const ArticleId = () => {
-  const [blogsList, setBlogsList] = useState<IBlog>();
-  const [commentsList, setCommentsList] = useState<ICommentState[]>([]);
   const [inputData, setInputData] = useState("");
-  console.log(commentsList);
   const { articleId } = useParams();
+
+  const createCommentMutatuin = useCreateCommentMutatuin();
+  const reactCommentMutation = useReactCommentMutation(articleId);
+
+  const { data: blogsList } = useQuery({
+    queryKey: ["blogs"],
+    queryFn: getPublicBlog,
+    staleTime: 1000 * 60 * 5,
+  });
 
   const filteredBlogList = useMemo(() => {
     return blogsList?.data.filter((el) => el.id === articleId);
   }, [articleId, blogsList?.data]);
 
-  const getBlogs = async () => {
-    const response = await getPublicBlog();
-    setBlogsList(response);
-  };
-
   const article = filteredBlogList?.[0];
 
-  const sendComment = async () => {
-    if (!article?.id) return;
-    try {
-      const sendMsg = createComment({
-        articleId: article?.id,
-        content: inputData,
-      });
-      setInputData("");
-      console.log(sendMsg);
-      return sendMsg;
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const htmlContent = useMemo(() => {
+    return marked.parse(article?.content || "");
+  }, [article?.content]);
 
-  const getComments = async () => {
-    if (!article?.id) return;
-    const response = await getCommentsForAnArticle(article?.id);
-    setCommentsList(response);
+  const { data: commentsList = [] } = useQuery<ICommentState[]>({
+    queryKey: ["comments", article?.id],
+    queryFn: () => getCommentsForAnArticle(article!.id),
+    enabled: !!article?.id,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const handleSendComment = () => {
+    if (!article?.id || !inputData) return;
+    createCommentMutatuin.mutate({
+      articleId: article?.id,
+      content: inputData,
+    });
+    setInputData("");
   };
 
   const handleReactComent = async (
@@ -57,20 +59,8 @@ const ArticleId = () => {
     idComment: string,
   ) => {
     if (!article?.id) return;
-
-    await reactComment({ type: reactType }, idComment);
-    getComments();
+    reactCommentMutation.mutate({ idComment, reactData: { type: reactType } });
   };
-
-  useEffect(() => {
-    getBlogs();
-  }, []);
-
-  useEffect(() => {
-    if (article?.id) {
-      getComments();
-    }
-  }, [article?.id]);
 
   if (!blogsList) {
     return (
@@ -111,6 +101,7 @@ const ArticleId = () => {
       </div>
     );
   }
+
   const formattedDate = new Date(
     article.publishedAt || article.createdAt,
   ).toLocaleDateString("en-US", {
@@ -148,8 +139,14 @@ const ArticleId = () => {
           </div>
 
           <div className="article-body">
-            <p>{article.shortDescription}</p>
-            <p>{article.content}</p>
+            {article.shortDescription && (
+              <p className="article-short-desc">{article.shortDescription}</p>
+            )}
+
+            <div
+              className="markdown-render"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
           </div>
         </article>
 
@@ -162,21 +159,25 @@ const ArticleId = () => {
               commentsList.map((el, index) => (
                 <div key={el.id ?? index} className="comment-item">
                   <div className="comment-bubble">
-                    <div className="comment-author">{el.author.email}</div>
+                    <div className="comment-author">
+                      {el.author?.email || "You"}
+                    </div>
                     <div className="comment-text">{el.content}</div>
                     <div className="comment-reactions">
                       <button
                         onClick={() => handleReactComent("LIKE", el.id)}
-                        className={`reaction-button like-btn ${el.myReaction === "LIKE" ? "active" : ""
-                          }`}
+                        className={`reaction-button like-btn ${
+                          el.myReaction === "LIKE" ? "active" : ""
+                        }`}
                       >
                         <span>{el.likes ?? 0}</span>
                         <LikeSVG width="20" height="20" />
                       </button>
                       <button
                         onClick={() => handleReactComent("DISLIKE", el.id)}
-                        className={`reaction-button dislike-btn ${el.myReaction === "DISLIKE" ? "active" : ""
-                          }`}
+                        className={`reaction-button dislike-btn ${
+                          el.myReaction === "DISLIKE" ? "active" : ""
+                        }`}
                       >
                         <span>{el.dislikes ?? 0}</span>
                         <DislikeSVG width="20" height="20" />
@@ -214,7 +215,10 @@ const ArticleId = () => {
                 onChange={(e) => setInputData(e.target.value)}
               />
             </div>
-            <button onClick={() => sendComment()} className="comic-button">
+            <button
+              onClick={() => handleSendComment()}
+              className="comic-button"
+            >
               POST COMMENT
             </button>
           </div>

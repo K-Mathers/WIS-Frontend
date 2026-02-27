@@ -20,17 +20,16 @@ export const createComment = async (comentData: IComment) => {
   }
 };
 
-export const reactComment = async (
-  reactData: { type: "LIKE" | "DISLIKE" },
-  idComment: string,
-) => {
-  try {
-    const response = await api.post(
-      `${articlePath.REACTCOMENT}/${idComment}/reaction`,
-      reactData,
-    );
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
+export const reactComment = async ({
+  idComment,
+  reactData,
+}: {
+  idComment: string;
+  reactData: { type: "LIKE" | "DISLIKE" };
+}) => {
+  const response = await api.post(
+    `${articlePath.REACTCOMENT}/${idComment}/reaction`,
+    reactData,
+  );
+  return response.data;
 };

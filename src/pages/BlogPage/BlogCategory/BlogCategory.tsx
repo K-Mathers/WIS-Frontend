@@ -1,24 +1,30 @@
 import { useParams, useNavigate } from "react-router-dom";
 import "./BlogCategory.css";
 import { getPublicBlog } from "@/api/blog";
-import type { IData } from "@/components/BlogPage/type/type";
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 const BlogCategory = () => {
-  const { categoryName } = useParams<{ categoryName?: string }>();
-
-  const { data: filteredBlogs, isLoading } = useQuery({
-    queryKey: ["public-blogs"],
+  const { data: blogsList, isLoading } = useQuery({
+    queryKey: ["blogs"],
     queryFn: getPublicBlog,
-    select: (blogs) => {
-      if (!blogs?.data) return [];
-      if (!categoryName) return blogs.data;
-      return blogs.data.filter((el: IData) => el.category === categoryName);
-    },
+    staleTime: 1000 * 60 * 5,
   });
 
-  const blogs = filteredBlogs || [];
-    
+  const navigate = useNavigate();
+
+  const { categoryName } = useParams<{ categoryName?: string }>();
+
+  const filteredBlog = useMemo(() => {
+    if (!blogsList?.data) return [];
+
+    if (!categoryName) {
+      return blogsList.data;
+    }
+
+    return blogsList.data.filter((el) => el.category === categoryName);
+  }, [blogsList?.data, categoryName]);
+
   if (isLoading) {
     return (
       <div className="blog-category-container">

@@ -10,18 +10,13 @@ import VerifEmailPage from "./ui/Sections/VerifEmailSection";
 import LogoutPage from "./ui/Sections/LogoutSection";
 import { TAB_TITLES } from "./lib";
 import ForgotPasswordForm from "@/components/Auth/ForgotPasswordForm";
+import { useQuery } from "@tanstack/react-query";
 
 const ProfilePage = () => {
   const { isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] =
     useState<keyof typeof TAB_TITLES>("general");
 
-  const [formData, setFormData] = useState({
-    email: "",
-    role: "",
-    createdAt: "",
-    isVerified: "",
-  });
   const [forgotEmail, setForgotEmail] = useState("");
   const [passwordData, setPasswordData] = useState({
     currentPassword: "",
@@ -30,20 +25,18 @@ const ProfilePage = () => {
   });
   const [verifStep, setVerifStep] = useState(1);
 
+  const { data: formData, isLoading } = useQuery({
+    queryKey: ["profileData"],
+    queryFn: getUser,
+    staleTime: 1000 * 60 * 5,
+    enabled: isAuthenticated,
+  });
+
   useEffect(() => {
-    if (isAuthenticated) {
-      const fetchUserData = async () => {
-        try {
-          const data = await getUser();
-          setFormData(data);
-          setForgotEmail(data.email);
-        } catch (err) {
-          console.error(err);
-        }
-      };
-      fetchUserData();
+    if (formData?.email) {
+      setForgotEmail(formData.email);
     }
-  }, [isAuthenticated]);
+  }, [formData]);
 
   if (!isAuthenticated) {
     return (
@@ -57,6 +50,10 @@ const ProfilePage = () => {
         </div>
       </div>
     );
+  }
+
+  if (isLoading) {
+    return <div className="loading">LOADING PROFILE...</div>;
   }
 
   const getActiveClass = (tabName: string) => {
@@ -110,7 +107,7 @@ const ProfilePage = () => {
             </button>
           </nav>
         </aside>
-        
+
         <main className="profile-content-area">
           <div className="profile-content-card">
             <div className="profile-card__header">
@@ -136,9 +133,8 @@ const ProfilePage = () => {
             <VerifEmailPage
               activeTab={activeTab}
               verifStep={verifStep}
-              setVerifStep={setVerifStep}
               formData={formData}
-              setFormData={setFormData}
+              setVerifStep={setVerifStep}
             />
 
             <LogoutPage activeTab={activeTab} />
