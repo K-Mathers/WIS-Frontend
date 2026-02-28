@@ -175,15 +175,6 @@
   padding-bottom: 10px;
 }
 
-/* .card-title {
-  font-size: 3rem;
-  line-height: 1;
-  margin: 0;
-  text-transform: uppercase;
-  color: #000;
-  text-shadow: 2px 2px 0px #fff;
-} */
-
 .slug-text {
   font-family: 'Courier New', Courier, monospace;
   font-weight: bold;
@@ -438,6 +429,10 @@
 }
 
 @media (max-width: 900px) {
+  .moderation-page {
+    padding: 20px 16px;
+  }
+
   .card-content-wrapper {
     grid-template-columns: 1fr;
   }
@@ -455,5 +450,44 @@
 
   .card-actions {
     grid-template-columns: 1fr;
+  }
+
+  .main-cover-wrapper,
+  .main-cover {
+    max-width: 100%;
+  }
+
+  .article-body-preview {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .mod-title {
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+  }
+
+  .article-card {
+    padding: 24px 16px 20px;
+    box-shadow: 10px 10px 0px #000;
+  }
+
+  .btn-mod {
+    font-size: 1.2rem;
+    padding: 14px;
+  }
+
+  .mini-gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .comic-feedback-input {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  .articles-grid {
+    gap: 50px;
   }
 }

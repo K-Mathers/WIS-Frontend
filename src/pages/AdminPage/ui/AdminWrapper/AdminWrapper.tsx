@@ -15,9 +15,9 @@ const AdminWrapper = ({ children }: IAdminWrapper) => {
     return location.pathname === path ? "nav-item active" : "nav-item";
   };
   return (
-    <div className="admin-page-container flex flex-col h-screen overflow-hidden">
+    <div className="admin-page-container">
       <Header />
-      <div className="comic-admin flex-1">
+      <div className="comic-admin">
         <aside className="comic-sidebar">
           <div className="comic-logo">ADMIN!</div>
           <nav>

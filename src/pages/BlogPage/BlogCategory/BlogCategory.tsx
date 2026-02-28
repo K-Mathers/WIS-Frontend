@@ -3,6 +3,7 @@ import "./BlogCategory.css";
 import { getPublicBlog } from "@/api/blog";
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import type { IData } from "@/components/BlogPage/type/type";
 
 const BlogCategory = () => {
   const { data: blogsList, isLoading } = useQuery({
@@ -33,7 +34,7 @@ const BlogCategory = () => {
     );
   }
 
-  if (blogs.length === 0) {
+  if (filteredBlog.length === 0) {
     return (
       <div className="blog-category-container">
         <div className="comic-empty-card">
@@ -47,10 +48,12 @@ const BlogCategory = () => {
   return (
     <div className="blog-category-container">
       <h1 className="category-header">
-        <span className="category-subheader">{blogs.length} ARTICLES!</span>
+        <span className="category-subheader">
+          {filteredBlog.length} ARTICLES!
+        </span>
       </h1>
       <section className="cards-section">
-        {blogs.map((el: IData) => {
+        {filteredBlog.map((el: IData) => {
           return (
             <div
               onClick={() => navigate(`/blog/${el.id}`)}

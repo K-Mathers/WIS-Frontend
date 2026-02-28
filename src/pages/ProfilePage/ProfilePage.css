@@ -181,7 +181,6 @@
     flex-direction: row;
     overflow-x: auto;
     padding: 10px;
-    gap: 10px;
   }
 
   .profile-sidebar__title {
@@ -190,7 +189,36 @@
 
   .profile-sidebar__btn {
     margin-bottom: 0;
-    width: auto;
     white-space: nowrap;
+  }
+
+  .profile-content-area {
+    padding: 20px 16px;
+  }
+
+  .profile-content-card {
+    padding: 24px 20px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-content-area {
+    padding: 14px 10px;
+    background-size: 16px 16px;
+  }
+
+  .profile-content-card {
+    padding: 18px 14px;
+    box-shadow: 6px 6px 0px 0px #000;
+  }
+
+  .profile-card__title {
+    font-size: 1.2rem;
+  }
+
+  .profile-form__input {
+    font-size: 0.9rem;
+    padding: 10px;
   }
 }

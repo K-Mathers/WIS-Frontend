@@ -8,6 +8,10 @@
   background-image: radial-gradient(#000000 1.2px, transparent 1.2px);
   background-size: 20px 20px;
   font-family: 'Comic Neue', cursive;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 .blog-content-wrapper {
@@ -17,12 +21,14 @@
   position: relative;
   z-index: 1;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .blog-layout-row {
   display: flex;
   width: 100%;
   flex: 1;
+  box-sizing: border-box;
 }
 
 .blog-content-column {
@@ -32,6 +38,8 @@
   flex-direction: column;
   gap: 60px;
   align-items: center;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 .logo-text,
@@ -154,6 +162,17 @@
   }
 
   .blog-content-column {
-    padding: 20px;
+    padding: 20px 16px;
+    gap: 32px;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 500px) {
+  .blog-content-column {
+    padding: 12px;
+    gap: 24px;
+    width: 100%;
+    overflow-x: hidden;
   }
 }

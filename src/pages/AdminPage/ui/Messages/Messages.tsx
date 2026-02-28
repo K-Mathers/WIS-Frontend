@@ -8,7 +8,7 @@ const Messages = () => {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
   const [input, setInput] = useState("");
   const [chats, setChats] = useState<IChat[]>([]);
-
+  
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const socketRef = useRef<Socket | null>(null);
 
