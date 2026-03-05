@@ -4,7 +4,7 @@ import FooterHome from "../HomePage/ui/Footer/FooterHome";
 import Header from "@/components/Header/Header";
 import { Route, Routes } from "react-router-dom";
 import BlogList from "./BlogList/BlogList";
-import BlogCategory from "./BlogCategory/BlogCategory";
+import BlogCategory from "./BlogCategory/ui/BlogCategory";
 
 const BlogPage = () => {
   return (
