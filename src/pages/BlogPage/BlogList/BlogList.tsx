@@ -1,4 +1,4 @@
-import CategorieCard from "@/components/BlogPage/ui/CategorieCard/CategorieCard";
+import CategorieCard from "@/components/BlogPage/ui/CategorieCard/ui/CategorieCard";
 import "./BlogList.css";
 import CreateArticle from "@/components/BlogPage/ui/CreateArticle/CreateArticle";
 
