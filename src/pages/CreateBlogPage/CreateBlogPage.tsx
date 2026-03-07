@@ -13,6 +13,8 @@ import {
 import Header from "../../components/Header/Header";
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 import AuthLocked from "@/components/AuthLocked/AuthLocked";
+import { motion } from "framer-motion";
+import { fadeInUp } from "@/utils/animations";
 
 const CreateBlogPage = () => {
   const [userTitle, setUserTitle] = useState<string>("");
@@ -128,7 +130,12 @@ const CreateBlogPage = () => {
   return (
     <div className="comic-page-wrapper">
       <Header />
-      <div className="comic-form-container mt-12">
+      <motion.div
+        className="comic-form-container mt-12"
+        variants={fadeInUp}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="comic-badge-top">NEW POST</div>
 
         <header className="comic-form-header">
@@ -174,9 +181,8 @@ const CreateBlogPage = () => {
                 <label className="comic-label-badge">COVER IMAGE</label>
 
                 <div
-                  className={`comic-upload-zone ${
-                    coverPreviewUrl ? "filled" : "empty"
-                  }`}
+                  className={`comic-upload-zone ${coverPreviewUrl ? "filled" : "empty"
+                    }`}
                   onClick={() => coverInputRef.current?.click()}
                 >
                   {coverPreviewUrl ? (
@@ -258,7 +264,7 @@ const CreateBlogPage = () => {
             </button>
           </div>
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };

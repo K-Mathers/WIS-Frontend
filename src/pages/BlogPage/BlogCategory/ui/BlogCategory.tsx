@@ -6,6 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 import type { IData } from "@/components/BlogPage/type/type";
 import SkeletonWrapper from "@/utils/skeleton/SkeletonWrapper";
 import { ArticleCardSkeletonList } from "../skeleton/BlogCategorySkeleton";
+import { motion } from "framer-motion";
+import { bounceIn, zoomIn } from "@/utils/animations";
 
 const BlogCategory = () => {
   const { data: blogsList, isLoading } = useQuery({
@@ -39,43 +41,51 @@ const BlogCategory = () => {
   }
 
   return (
-    <div className="blog-category-container">
-      <SkeletonWrapper
-        isLoading={isLoading}
-        skeleton={<ArticleCardSkeletonList />}
-      >
-        <h1 className="category-header">
-          <span className="category-subheader">
-            {filteredBlog.length} ARTICLES!
-          </span>
-        </h1>
-        <section className="cards-section">
-          {filteredBlog.map((el: IData) => {
-            return (
-              <div
-                onClick={() => navigate(`/blog/${el.id}`)}
-                className="card"
-                key={el.id}
-              >
-                <div className="upper-part">
-                  <img src={el.coverImage} className="soon-image" alt="cover" />
-                  <p className="card-description">{el.title}</p>
-                  <p className="card-short-description">
-                    {el.shortDescription}
-                  </p>
-                  <p>
-                    {new Date(el.createdAt).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </section>
-      </SkeletonWrapper>
-    </div>
+    <motion.header key={categoryName} variants={zoomIn} initial="hidden" animate="visible">
+      <div className="blog-category-container">
+        <SkeletonWrapper
+          isLoading={isLoading}
+          skeleton={<ArticleCardSkeletonList />}
+        >
+          <h1 className="category-header">
+            <span className="category-subheader">
+              {filteredBlog.length} ARTICLES!
+            </span>
+          </h1>
+          <motion.div variants={bounceIn}>
+            <section className="cards-section">
+              {filteredBlog.map((el: IData) => {
+                return (
+                  <div
+                    onClick={() => navigate(`/blog/${el.id}`)}
+                    className="card"
+                    key={el.id}
+                  >
+                    <div className="upper-part">
+                      <img
+                        src={el.coverImage}
+                        className="soon-image"
+                        alt="cover"
+                      />
+                      <p className="card-description">{el.title}</p>
+                      <p className="card-short-description">
+                        {el.shortDescription}
+                      </p>
+                      <p>
+                        {new Date(el.createdAt).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </section>
+          </motion.div>
+        </SkeletonWrapper>
+      </div>
+    </motion.header>
   );
 };
 

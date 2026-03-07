@@ -11,6 +11,8 @@ import LogoutPage from "./ui/Sections/LogoutSection";
 import { TAB_TITLES } from "./lib";
 import ForgotPasswordForm from "@/components/Auth/ForgotPasswordForm";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { staggerContainer, slideInLeft, fadeInUp } from "@/utils/animations";
 
 const ProfilePage = () => {
   const { isAuthenticated } = useAuth();
@@ -66,8 +68,13 @@ const ProfilePage = () => {
     <div className="profile-page-container">
       <Header />
 
-      <div className="profile-layout-main">
-        <aside className="profile-sidebar">
+      <motion.div
+        className="profile-layout-main"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.aside variants={slideInLeft} className="profile-sidebar">
           <div className="profile-sidebar__title">PROFILE!</div>
 
           <nav>
@@ -106,9 +113,9 @@ const ProfilePage = () => {
               Logout
             </button>
           </nav>
-        </aside>
+        </motion.aside>
 
-        <main className="profile-content-area">
+        <motion.main variants={fadeInUp} className="profile-content-area">
           <div className="profile-content-card">
             <div className="profile-card__header">
               <h2 className="profile-card__title">{TAB_TITLES[activeTab]}</h2>
@@ -139,8 +146,8 @@ const ProfilePage = () => {
 
             <LogoutPage activeTab={activeTab} />
           </div>
-        </main>
-      </div>
+        </motion.main>
+      </motion.div>
     </div>
   );
 };

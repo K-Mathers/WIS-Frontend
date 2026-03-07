@@ -2,6 +2,8 @@ import Header from "@/components/Header/Header";
 import "./AdminWrapper.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { staggerContainer, slideInLeft, fadeInUp } from "@/utils/animations";
 
 interface IAdminWrapper {
   children: ReactNode;
@@ -17,8 +19,13 @@ const AdminWrapper = ({ children }: IAdminWrapper) => {
   return (
     <div className="admin-page-container">
       <Header />
-      <div className="comic-admin">
-        <aside className="comic-sidebar">
+      <motion.div
+        className="comic-admin"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.aside variants={slideInLeft} className="comic-sidebar">
           <div className="comic-logo">ADMIN!</div>
           <nav>
             <button
@@ -40,9 +47,11 @@ const AdminWrapper = ({ children }: IAdminWrapper) => {
               MESSAGES
             </button>
           </nav>
-        </aside>
-        {children}
-      </div>
+        </motion.aside>
+        <motion.main variants={fadeInUp} style={{ flex: 1 }}>
+          {children}
+        </motion.main>
+      </motion.div>
     </div>
   );
 };
