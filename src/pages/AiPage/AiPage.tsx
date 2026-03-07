@@ -9,6 +9,8 @@ import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 import Header from "@/components/Header/Header";
 import AuthLocked from "@/components/AuthLocked/AuthLocked";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { fadeInDown } from "@/utils/animations";
 
 const AiPage = () => {
   const [selectedMode, setSelectedMode] = useState("CREATIVE");
@@ -49,7 +51,8 @@ const AiPage = () => {
     }
   }, [historyData, sessionId, location.state, location.pathname]);
 
-  if (isPending && !!sessionId) return <div className="comic-loader">LOADING DOSSIER...</div>;
+  if (isPending && !!sessionId)
+    return <div className="comic-loader">LOADING MESSAGES...</div>;
   if (isError)
     return <div className="error">Error loading data: {error.message}</div>;
 
@@ -63,7 +66,12 @@ const AiPage = () => {
         />
       )}
 
-      <main className="ai-main-wrapper">
+      <motion.main
+        className="ai-main-wrapper"
+        variants={fadeInDown}
+        initial="hidden"
+        animate="visible"
+      >
         <Header />
 
         {isAuthenticated ? (
@@ -76,7 +84,7 @@ const AiPage = () => {
         ) : (
           <AuthLocked />
         )}
-      </main>
+      </motion.main>
     </div>
   );
 };

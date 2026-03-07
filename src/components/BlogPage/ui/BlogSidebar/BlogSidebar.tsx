@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./BlogSidebar.css";
+import { motion } from "framer-motion";
+import { shake } from "@/utils/animations";
 
 const categories = [
   "PREMIUM_COLLECTION",
@@ -11,7 +13,7 @@ const categories = [
 
 const BlogSidebar = () => {
   return (
-    <aside className="blog-sidebar">
+    <motion.aside className="blog-sidebar" variants={shake} initial="hidden" animate="visible">
       <div className="sidebar-sticky-content">
         <h2 className="sidebar-title">Categories</h2>
         <nav className="categories-list">
@@ -37,7 +39,7 @@ const BlogSidebar = () => {
           ))}
         </nav>
       </div>
-    </aside>
+    </motion.aside>
   );
 };
 

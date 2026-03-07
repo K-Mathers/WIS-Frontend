@@ -35,32 +35,33 @@ const RightSide = ({
       {messages.length === 0 ? (
         <ChatBotPrewiew />
       ) : (
-        <div className="chat-messages-container">
-          {messages.map((el, index) => (
-            <div
-              key={index}
-              className={`message-bubble ${
-                el.role === "USER" ? "user-msg" : "ai-msg"
-              }`}
-            >
-              {el.role === "ASSISTANT" ? (
-                <div
-                  className="markdown-body"
-                  dangerouslySetInnerHTML={{ __html: marked.parse(el.text) }}
-                />
-              ) : (
-                el.text
-              )}
-            </div>
-          ))}
+        <div className="chat-scroll-wrapper" ref={scrollRef}>
+          <div className="chat-messages-container">
+            {messages.map((el, index) => (
+              <div
+                key={index}
+                className={`message-bubble ${el.role === "USER" ? "user-msg" : "ai-msg"
+                  }`}
+              >
+                {el.role === "ASSISTANT" ? (
+                  <div
+                    className="markdown-body"
+                    dangerouslySetInnerHTML={{ __html: marked.parse(el.text) }}
+                  />
+                ) : (
+                  el.text
+                )}
+              </div>
+            ))}
 
-          {isTyping && (
-            <div className="typing-indicator">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          )}
+            {isTyping && (
+              <div className="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            )}
+          </div>
         </div>
       )}
       <div className="ai-input-area">

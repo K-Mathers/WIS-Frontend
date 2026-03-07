@@ -16,6 +16,38 @@
   scroll-behavior: smooth;
 }
 
+.chat-scroll-wrapper::-webkit-scrollbar {
+  width: 14px;
+}
+
+.chat-scroll-wrapper::-webkit-scrollbar-track {
+  background: #fff;
+  border-left: 3px solid #000;
+}
+
+.chat-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #ffde03;
+  border: 3px solid #000;
+}
+
+.chat-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #e74c3c;
+}
+
+.dark-theme .chat-scroll-wrapper::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-left: 3px solid #ffde03;
+}
+
+.dark-theme .chat-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #ffde03;
+  border: 3px solid #1a1a1a;
+}
+
+.dark-theme .chat-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #e74c3c;
+}
+
 .chat-messages-container {
   display: flex;
   flex-direction: column;
@@ -27,7 +59,6 @@
   z-index: 5;
 }
 
-
 .ai-input-area {
   display: flex;
   justify-content: center;
@@ -35,7 +66,6 @@
   padding: 12px 20px 20px;
   background: transparent;
 }
-
 
 .message-bubble {
   max-width: 75%;
@@ -45,7 +75,7 @@
   font-weight: 700;
   position: relative;
   filter: drop-shadow(4px 4px 0 #000000);
-  font-family: 'Comic Neue', cursive;
+  font-family: "Comic Neue", cursive;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }

@@ -5,10 +5,17 @@ import Header from "@/components/Header/Header";
 import { Route, Routes } from "react-router-dom";
 import BlogList from "./BlogList/BlogList";
 import BlogCategory from "./BlogCategory/ui/BlogCategory";
+import { motion } from "framer-motion";
+import { staggerContainer } from "@/utils/animations";
 
 const BlogPage = () => {
   return (
-    <div className="blog-page-container">
+    <motion.div
+      variants={staggerContainer}
+      initial="hidden"
+      animate="visible"
+      className="blog-page-container"
+    >
       <Header />
 
       <div className="blog-content-wrapper">
@@ -17,13 +24,16 @@ const BlogPage = () => {
 
           <Routes>
             <Route path="/" element={<BlogList />} />
-            <Route path="/category/:categoryName" element={<BlogCategory />} />
+            <Route
+              path="/category/:categoryName"
+              element={<BlogCategory />}
+            />
           </Routes>
         </div>
       </div>
 
       <FooterHome />
-    </div>
+    </motion.div>
   );
 };
 

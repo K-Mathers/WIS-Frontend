@@ -6,6 +6,8 @@ import burstZap from "@/assets/AuthAssets/burst_zap.png";
 import jordanRed from "@/assets/AuthAssets/sneaker1.png";
 import sneakerBlue from "@/assets/AuthAssets/sneaker2.png";
 import Header from "../../components/Header/Header";
+import { motion } from "framer-motion";
+import { staggerContainer, zoomIn } from "@/utils/animations";
 
 const LoginPage = () => {
   return (
@@ -13,16 +15,21 @@ const LoginPage = () => {
       <div className="auth-header-wrapper">
         <Header backgroundColor="comic-header" />
       </div>
-      <div className="auth-content-wrapper">
-        <img src={jordanRed} className="comic-decoration decor-top-left" />
-        <img src={sneakerBlue} className="comic-decoration decor-top-right" />
-        <img src={burstPow} className="comic-decoration decor-bottom-left" />
-        <img src={burstZap} className="comic-decoration decor-bottom-right" />
+      <motion.div
+        className="auth-content-wrapper"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.img variants={zoomIn} src={jordanRed} className="comic-decoration decor-top-left" />
+        <motion.img variants={zoomIn} src={sneakerBlue} className="comic-decoration decor-top-right" />
+        <motion.img variants={zoomIn} src={burstPow} className="comic-decoration decor-bottom-left" />
+        <motion.img variants={zoomIn} src={burstZap} className="comic-decoration decor-bottom-right" />
 
         <PageBlockWrapper>
           <AuthCard type="login" />
         </PageBlockWrapper>
-      </div>
+      </motion.div>
     </div>
   );
 };

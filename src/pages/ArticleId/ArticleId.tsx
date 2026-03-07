@@ -14,6 +14,8 @@ import {
   useCreateCommentMutatuin,
   useReactCommentMutation,
 } from "@/hooks/Mutations/articleMutations";
+import { motion } from "framer-motion";
+import { fadeInUp, staggerContainer, scaleIn } from "@/utils/animations";
 
 const ArticleId = () => {
   const [inputData, setInputData] = useState("");
@@ -114,7 +116,12 @@ const ArticleId = () => {
     <div className="article-page-container">
       <Header />
 
-      <main className="article-content">
+      <motion.main
+        className="article-content"
+        variants={fadeInUp}
+        initial="hidden"
+        animate="visible"
+      >
         <article className="article-card-news">
           <div className="article-header">
             <h1 className="article-title">{article.title}</h1>
@@ -150,14 +157,19 @@ const ArticleId = () => {
           </div>
         </article>
 
-        <section className="comments-section">
+        <motion.section
+          className="comments-section"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="comments-title-wrapper">
             <div className="comments-title">COMMENTS {commentsList.length}</div>
           </div>
           <div className="comments-list">
             {commentsList.length ? (
               commentsList.map((el, index) => (
-                <div key={el.id ?? index} className="comment-item">
+                <motion.div key={el.id ?? index} variants={scaleIn} className="comment-item">
                   <div className="comment-bubble">
                     <div className="comment-author">
                       {el.author?.email || "You"}
@@ -166,25 +178,23 @@ const ArticleId = () => {
                     <div className="comment-reactions">
                       <button
                         onClick={() => handleReactComent("LIKE", el.id)}
-                        className={`reaction-button like-btn ${
-                          el.myReaction === "LIKE" ? "active" : ""
-                        }`}
+                        className={`reaction-button like-btn ${el.myReaction === "LIKE" ? "active" : ""
+                          }`}
                       >
                         <span>{el.likes ?? 0}</span>
                         <LikeSVG width="20" height="20" />
                       </button>
                       <button
                         onClick={() => handleReactComent("DISLIKE", el.id)}
-                        className={`reaction-button dislike-btn ${
-                          el.myReaction === "DISLIKE" ? "active" : ""
-                        }`}
+                        className={`reaction-button dislike-btn ${el.myReaction === "DISLIKE" ? "active" : ""
+                          }`}
                       >
                         <span>{el.dislikes ?? 0}</span>
                         <DislikeSVG width="20" height="20" />
                       </button>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))
             ) : (
               <div className="comments-empty">
@@ -222,8 +232,8 @@ const ArticleId = () => {
               POST COMMENT
             </button>
           </div>
-        </section>
-      </main>
+        </motion.section>
+      </motion.main>
 
       <FooterHome />
     </div>
