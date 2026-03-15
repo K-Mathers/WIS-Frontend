@@ -6,6 +6,8 @@ import {
   useForgotSendEmailMutation,
   useResetPasswordConfirmMutation,
 } from "@/hooks/Mutations/authMutations";
+import { motion, AnimatePresence } from "framer-motion";
+import { staggerFast, fadeInUp } from "@/utils/animations";
 
 interface IForgotPasswordForm {
   forgotEmail: string;
@@ -13,6 +15,8 @@ interface IForgotPasswordForm {
   onSuccess: () => void;
   onBack?: () => void;
 }
+
+const MotionGroup = motion.div;
 
 const ForgotPasswordForm = ({
   forgotEmail,
@@ -64,94 +68,112 @@ const ForgotPasswordForm = ({
   };
 
   return (
-    <div className="profile-form profile-form--full animate-fade-in">
-      {forgotStep === 1 ? (
-        <>
-          <div className="profile-form__group">
-            <label className="profile-form__label">
-              Lost your password? Enter your email address.
-            </label>
-            <input
-              type="email"
-              className="profile-form__input"
-              placeholder="user@example.com"
-              value={forgotEmail}
-              onChange={(e) => setForgotEmail(e.target.value)}
-            />
-          </div>
-          <div className="profile-actions">
-            {onBack && (
-              <button className="profile-btn" onClick={onBack}>
+    <div className="profile-form profile-form--full">
+      <AnimatePresence mode="wait">
+        {forgotStep === 1 ? (
+          <motion.div
+            key="step-1"
+            variants={staggerFast}
+            initial="hidden"
+            animate="visible"
+            exit={{ opacity: 0, x: -20, transition: { duration: 0.2 } }}
+          >
+            <MotionGroup className="profile-form__group" variants={fadeInUp}>
+              <label className="profile-form__label">
+                Lost your password? Enter your email address.
+              </label>
+              <input
+                type="email"
+                className="profile-form__input"
+                placeholder="user@example.com"
+                value={forgotEmail}
+                onChange={(e) => setForgotEmail(e.target.value)}
+              />
+            </MotionGroup>
+
+            <MotionGroup className="profile-actions" variants={fadeInUp}>
+              {onBack && (
+                <button className="profile-btn" onClick={onBack}>
+                  Back
+                </button>
+              )}
+              <button
+                className="profile-btn profile-btn--primary"
+                onClick={handleForgotSendEmail}
+              >
+                Send Reset Instructions
+              </button>
+            </MotionGroup>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="step-2"
+            variants={staggerFast}
+            initial="hidden"
+            animate="visible"
+            exit={{ opacity: 0, x: 20, transition: { duration: 0.2 } }}
+          >
+            <MotionGroup className="profile-form__group" variants={fadeInUp}>
+              <label className="profile-form__label">Reset Code</label>
+              <input
+                className="profile-form__input"
+                placeholder="ENTER CODE"
+                value={recoveryData.code}
+                onChange={(e) =>
+                  setRecoveryData({
+                    ...recoveryData,
+                    code: e.target.value,
+                  })
+                }
+              />
+            </MotionGroup>
+
+            <MotionGroup className="profile-form__group" variants={fadeInUp}>
+              <label className="profile-form__label">New Password</label>
+              <input
+                type="password"
+                className="profile-form__input"
+                placeholder="******"
+                value={recoveryData.newPassword}
+                onChange={(e) =>
+                  setRecoveryData({
+                    ...recoveryData,
+                    newPassword: e.target.value,
+                  })
+                }
+              />
+            </MotionGroup>
+
+            <MotionGroup className="profile-form__group" variants={fadeInUp}>
+              <label className="profile-form__label">Confirm Password</label>
+              <input
+                type="password"
+                className="profile-form__input"
+                placeholder="******"
+                value={recoveryData.confirmPassword}
+                onChange={(e) =>
+                  setRecoveryData({
+                    ...recoveryData,
+                    confirmPassword: e.target.value,
+                  })
+                }
+              />
+            </MotionGroup>
+
+            <MotionGroup className="profile-actions" variants={fadeInUp}>
+              <button
+                className="profile-btn profile-btn--primary"
+                onClick={handleResetPasswordConfirm}
+              >
+                Reset Password
+              </button>
+              <button className="profile-btn" onClick={() => setForgotStep(1)}>
                 Back
               </button>
-            )}
-            <button
-              className="profile-btn profile-btn--primary"
-              onClick={handleForgotSendEmail}
-            >
-              Send Reset Instructions
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="profile-form__group">
-            <label className="profile-form__label">Reset Code</label>
-            <input
-              className="profile-form__input"
-              placeholder="ENTER CODE"
-              value={recoveryData.code}
-              onChange={(e) =>
-                setRecoveryData({
-                  ...recoveryData,
-                  code: e.target.value,
-                })
-              }
-            />
-          </div>
-          <div className="profile-form__group">
-            <label className="profile-form__label">New Password</label>
-            <input
-              type="password"
-              className="profile-form__input"
-              placeholder="******"
-              value={recoveryData.newPassword}
-              onChange={(e) =>
-                setRecoveryData({
-                  ...recoveryData,
-                  newPassword: e.target.value,
-                })
-              }
-            />
-          </div>
-          <div className="profile-form__group">
-            <label className="profile-form__label">Confirm Password</label>
-            <input
-              type="password"
-              className="profile-form__input"
-              placeholder="******"
-              value={recoveryData.confirmPassword}
-              onChange={(e) =>
-                setRecoveryData({
-                  ...recoveryData,
-                  confirmPassword: e.target.value,
-                })
-              }
-            />
-          </div>
-          <div className="profile-actions">
-            <button
-              className="profile-btn profile-btn--primary"
-              onClick={handleResetPasswordConfirm}
-            >
-              Reset Password
-            </button>
-            <button className="profile-btn" onClick={() => setForgotStep(1)}>
-              Back
-            </button>
-          </div>
-        </>
-      )}
+            </MotionGroup>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

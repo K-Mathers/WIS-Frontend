@@ -1,19 +1,26 @@
 .comic-page-wrapper {
   min-height: 100vh;
-  background: #ffde03;
   background-image: radial-gradient(#000 15%, transparent 16%);
   background-size: 20px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.comic-auth-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
   align-items: center;
 }
 
 .comic-form-container {
   background: #fff;
   border: 8px solid black;
-  box-shadow: 25px 25px 0px black;
   width: 100%;
   max-width: 1200px;
   padding: 60px;
   position: relative;
+  margin: 0 auto;
 }
 
 .comic-badge-top {
@@ -143,7 +150,7 @@
 .comic-label-badge {
   background: #000;
   color: #fff;
-  font-family: 'Arial Black', sans-serif;
+  font-family: "Arial Black", sans-serif;
   font-size: 1.2rem;
   padding: 5px 15px;
   width: fit-content;
@@ -160,7 +167,9 @@
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -374,7 +383,6 @@
   display: list-item;
 }
 
-
 .dark-theme .comic-page-wrapper {
   background: #121212;
   background-image: radial-gradient(#3a3a3a 15%, transparent 16%);
@@ -383,7 +391,6 @@
 .dark-theme .comic-form-container {
   background: #2d2d2d;
   border-color: #ffde03;
-  box-shadow: 25px 25px 0px #fff;
 }
 
 .dark-theme .huge-title {

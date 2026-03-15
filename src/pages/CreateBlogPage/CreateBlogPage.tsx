@@ -114,14 +114,8 @@ const CreateBlogPage = () => {
     return (
       <div className="comic-page-wrapper">
         <Header />
-        <div
-          style={{
-            marginTop: "100px",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          <AuthLocked title="Write right now?" text="You need to be logged!" />
+        <div className="comic-auth-container">
+          <AuthLocked />
         </div>
       </div>
     );
@@ -181,8 +175,9 @@ const CreateBlogPage = () => {
                 <label className="comic-label-badge">COVER IMAGE</label>
 
                 <div
-                  className={`comic-upload-zone ${coverPreviewUrl ? "filled" : "empty"
-                    }`}
+                  className={`comic-upload-zone ${
+                    coverPreviewUrl ? "filled" : "empty"
+                  }`}
                   onClick={() => coverInputRef.current?.click()}
                 >
                   {coverPreviewUrl ? (

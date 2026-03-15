@@ -54,9 +54,6 @@ const ProfilePage = () => {
     );
   }
 
-  if (isLoading) {
-    return <div className="loading">LOADING PROFILE...</div>;
-  }
 
   const getActiveClass = (tabName: string) => {
     return activeTab === tabName
@@ -121,7 +118,7 @@ const ProfilePage = () => {
               <h2 className="profile-card__title">{TAB_TITLES[activeTab]}</h2>
             </div>
 
-            <GeneralPage activeTab={activeTab} formData={formData} />
+            <GeneralPage activeTab={activeTab} formData={formData} isLoading={isLoading} />
 
             <SecurityPage
               activeTab={activeTab}
@@ -142,6 +139,7 @@ const ProfilePage = () => {
               verifStep={verifStep}
               formData={formData}
               setVerifStep={setVerifStep}
+              isLoading={isLoading}
             />
 
             <LogoutPage activeTab={activeTab} />

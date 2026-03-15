@@ -4,6 +4,8 @@ import {
   successNotification,
 } from "@/utils/notification/notification";
 import { useSaveResetPasswordMutation } from "@/hooks/Mutations/authMutations";
+import { motion } from "framer-motion";
+import { fadeInUp } from "@/utils/animations";
 
 interface ISecurityPage {
   activeTab: string;
@@ -52,7 +54,12 @@ const SecurityPage = ({
   return (
     <div>
       {activeTab === "security" && (
-        <div className="profile-form profile-form--full">
+        <motion.div
+          className="profile-form profile-form--full"
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="profile-form__group">
             <label className="profile-form__label">Current Password</label>
             <input
@@ -107,7 +114,7 @@ const SecurityPage = ({
               Update Password
             </button>
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );
