@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface ICustomButton {
+interface ICustomButton extends React.ComponentProps<"button"> {
   textButton?: React.ReactNode;
   width?: string;
   height?: string;
@@ -19,8 +19,6 @@ interface ICustomButton {
   borderRadius?: string;
   maxWidth?: string;
   hoverTransform?: string;
-  className?: string;
-  onClick?: () => void;
 }
 
 const CustomButton: React.FC<ICustomButton> = ({
@@ -43,6 +41,7 @@ const CustomButton: React.FC<ICustomButton> = ({
   hoverTransform,
   className,
   onClick,
+  ...restProps
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -71,10 +70,20 @@ const CustomButton: React.FC<ICustomButton> = ({
     <div>
       <button
         className={className}
-        onClick={() => navigate("/login")}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         style={style}
+        onClick={(e) => {
+          if (onClick) onClick(e);
+          navigate("/login");
+        }}
+        onMouseEnter={(e) => {
+          setIsHovered(true);
+          if (restProps.onMouseEnter) restProps.onMouseEnter(e);
+        }}
+        onMouseLeave={(e) => {
+          setIsHovered(false);
+          if (restProps.onMouseLeave) restProps.onMouseLeave(e);
+        }}
+        {...restProps}
       >
         {textButton}
       </button>

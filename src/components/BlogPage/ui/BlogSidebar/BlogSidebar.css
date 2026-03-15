@@ -67,6 +67,19 @@
   z-index: 2;
 }
 
+.dark-theme .blog-sidebar {
+  background-color: #121212;
+}
+
+.dark-theme .category-item {
+  background-color: #121212;
+}
+
+.dark-theme .sidebar-title {
+  color: #ffde03;
+  background-color: #1a1a1a;
+}
+
 @media (max-width: 850px) {
   .blog-sidebar {
     max-width: 100vw;

@@ -1,6 +1,8 @@
 import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
 import { useLogoutMutation } from "@/hooks/Mutations/authMutations";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { fadeInUp } from "@/utils/animations";
 
 interface ILogoutPage {
   activeTab: string;
@@ -24,7 +26,12 @@ const LogoutPage = ({ activeTab }: ILogoutPage) => {
   return (
     <div>
       {activeTab === "logout" && (
-        <div className="profile-form profile-form--full animate-fade-in">
+        <motion.div
+          className="profile-form profile-form--full"
+          variants={fadeInUp}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="profile-form__group">
             <label className="profile-form__label">
               Are you sure you want to leave?
@@ -38,7 +45,7 @@ const LogoutPage = ({ activeTab }: ILogoutPage) => {
               Yes, Log Me Out!
             </button>
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );
