@@ -4,16 +4,35 @@ import Article from "./ui/Article/Article";
 import Messages from "./ui/Messages/Messages";
 import { Route, Routes } from "react-router-dom";
 import AdminWrapper from "./ui/AdminWrapper/AdminWrapper";
+import { useAuth } from "@/components/AuthProvider/AuthContext/AuthContext";
+import AuthLocked from "@/components/AuthLocked/AuthLocked";
+import Header from "@/components/Header/Header";
 
 const AdminPage = () => {
+  const { isAdmin } = useAuth();
+
   return (
-    <AdminWrapper>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="article" element={<Article />} />
-        <Route path="messages" element={<Messages />} />
-      </Routes>
-    </AdminWrapper>
+    <>
+      {isAdmin ? (
+        <AdminWrapper>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="article" element={<Article />} />
+            <Route path="messages" element={<Messages />} />
+          </Routes>
+        </AdminWrapper>
+      ) : (
+        <>
+          <Header />
+          <div className="role-locked-container">
+            <AuthLocked
+              text="You are blocked from viewing anything on this page without admin role"
+              buttonText="Check role"
+            />
+          </div>
+        </>
+      )}
+    </>
   );
 };
 

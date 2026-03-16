@@ -12,7 +12,6 @@
   background-image: radial-gradient(#ffffff22 1px, transparent 1px);
 }
 
-
 .forgot-page-content {
   display: flex;
   flex: 1;
@@ -120,7 +119,7 @@
 .profile-actions {
   margin-top: 20px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -139,10 +138,10 @@
 }
 
 .dark-theme .profile-btn {
-  background: #2d2d2d;
+  background: #1d1d1d;
   color: #fff;
-  border-color: #fff;
-  box-shadow: 6px 6px 0px 0px #fff;
+  border-color: #000000;
+  box-shadow: 6px 6px 0px 0px #000000;
 }
 
 .profile-btn--primary {
@@ -163,7 +162,7 @@
 }
 
 .dark-theme .profile-btn:hover {
-  box-shadow: 8px 8px 0px 0px #fff;
+  box-shadow: 8px 8px 0px 0px #ffd740;
 }
 
 .profile-btn:active {
