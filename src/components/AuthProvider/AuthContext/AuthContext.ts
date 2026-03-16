@@ -7,6 +7,7 @@ import { createContext, useContext } from "react";
 
 export interface IAuthContext {
   isAuthenticated: boolean;
+  isAdmin: boolean;
   user: IUserData | null;
   refreshAuth: (
     options?: RefetchOptions,

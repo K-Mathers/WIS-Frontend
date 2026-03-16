@@ -54,7 +54,6 @@ const ProfilePage = () => {
     );
   }
 
-
   const getActiveClass = (tabName: string) => {
     return activeTab === tabName
       ? "profile-sidebar__btn profile-sidebar__btn--active"
@@ -72,7 +71,7 @@ const ProfilePage = () => {
         animate="visible"
       >
         <motion.aside variants={slideInLeft} className="profile-sidebar">
-          <div className="profile-sidebar__title">PROFILE!</div>
+          <div className="profile-sidebar__title">PROFILE</div>
 
           <nav>
             <button
@@ -118,7 +117,11 @@ const ProfilePage = () => {
               <h2 className="profile-card__title">{TAB_TITLES[activeTab]}</h2>
             </div>
 
-            <GeneralPage activeTab={activeTab} formData={formData} isLoading={isLoading} />
+            <GeneralPage
+              activeTab={activeTab}
+              formData={formData}
+              isLoading={isLoading}
+            />
 
             <SecurityPage
               activeTab={activeTab}

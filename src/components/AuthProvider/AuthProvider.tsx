@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { getUser } from "@/api/auth";
 import { AuthContext } from "./AuthContext/AuthContext";
 import { useQuery } from "@tanstack/react-query";
@@ -17,10 +17,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   });
 
   const isAuthenticated = !!user;
+  const isAdmin = user?.role === "ADMIN";
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, user, refreshAuth: refetch, isLoading }}
+      value={{ isAuthenticated, isAdmin, user, refreshAuth: refetch, isLoading }}
     >
       {children}
     </AuthContext.Provider>

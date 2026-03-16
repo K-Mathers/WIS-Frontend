@@ -15,11 +15,9 @@
 }
 
 .profile-sidebar {
-  width: 250px;
-  background: #ff5252;
+  min-width: 250px;
+  background: #fff;
   border-right: 4px solid #000;
-  display: flex;
-  flex-direction: column;
   padding: 20px;
   height: 100%;
   overflow-y: auto;
@@ -27,12 +25,19 @@
 }
 
 .profile-sidebar__title {
-  font-size: 2.5rem;
-  color: white;
-  text-shadow: 4px 4px 0px #000;
+  font-size: 32px;
   margin-bottom: 40px;
-  transform: rotate(-5deg);
+  text-transform: uppercase;
+  border-bottom: 4px solid #000;
+  padding-bottom: 15px;
   text-align: center;
+  background-color: #ffde03;
+  box-shadow: 5px 5px 0px #000;
+  transform: rotate(-2deg);
+  box-sizing: border-box;
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .profile-sidebar__btn {
@@ -42,7 +47,7 @@
   width: 100%;
   background: #fff;
   border: 4px solid #000;
-  text-align: left;
+  text-align: center;
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
@@ -79,7 +84,7 @@
 .profile-content-card {
   background: #fff;
   border: 4px solid #000;
-  box-shadow: 10px 10px 0px 0px #000;
+  box-shadow: 6px 6px 0 #000000;
   padding: 40px;
   width: 100%;
   max-width: 800px;
@@ -139,10 +144,31 @@
   cursor: not-allowed;
 }
 
+.dark-theme .profile-page-container {
+  background-color: #121212;
+}
+
+.dark-theme .profile-sidebar {
+  background: #121212;
+  border-right: 4px solid #333;
+}
+
+.dark-theme .profile-sidebar__title {
+  color: #ffde03;
+  text-shadow: 4px 4px 0px #000;
+  background-color: #1a1a1a;
+}
+
+.dark-theme .profile-content-area {
+  background-color: #121212;
+  background-image: radial-gradient(#3a3a3a 1.2px, transparent 1.2px);
+}
+
 .dark-theme .profile-content-card {
-  background: #2d2d2d;
+  background: #1a1a1a;
   color: #fff;
-  box-shadow: 6px 6px 0 #fff;
+  border-color: #333;
+  box-shadow: 6px 6px 0 #000;
 }
 
 .dark-theme .profile-card__header {
@@ -150,22 +176,31 @@
 }
 
 .dark-theme .profile-sidebar__btn {
-  background: #2d2d2d;
-  color: #fff;
-  border-color: #fff;
+  background: #1a1a1a;
+  color: #ffde03;
+  border-color: #000000;
 }
 
 .dark-theme .profile-sidebar__btn:hover,
 .dark-theme .profile-sidebar__btn--active {
-  background: #ffd740;
+  background: #ffde03;
   color: #000;
-  box-shadow: 4px 4px 0px 0px #fff;
+  border-color: #000;
 }
 
 .dark-theme .profile-form__input {
-  background: #1a1a1a;
+  background: #121212;
   color: #fff;
+  border-color: #333;
+}
+
+.dark-theme .profile-form__input:focus {
   border-color: #ffde03;
+  box-shadow: 4px 4px 0px 0px #ffde03;
+}
+
+.dark-theme .profile-form__label {
+  color: #ccc;
 }
 
 @media (max-width: 768px) {

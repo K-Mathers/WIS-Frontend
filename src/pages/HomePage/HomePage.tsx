@@ -14,6 +14,7 @@ import { staggerContainer } from "@/utils/animations";
 
 const HomePage = () => {
   const { isAuthenticated } = useAuth();
+
   return (
     <motion.header
       variants={staggerContainer}
@@ -41,10 +42,7 @@ const HomePage = () => {
           <img src={jordan4Blue} className="comic-decoration decor-top-left" />
           <img src={adidasSamba} className="comic-decoration decor-top-right" />
           <img src={burstWow} className="comic-decoration decor-bottom-left" />
-          <img
-            src={burstCrazy}
-            className="comic-decoration decor-bottom-right"
-          />
+          <img src={burstCrazy} className="comic-decoration decor-bottom-right" />
           <MainHome />
         </div>
 
