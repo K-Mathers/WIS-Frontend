@@ -21,10 +21,26 @@ const LoginPage = () => {
         initial="hidden"
         animate="visible"
       >
-        <motion.img variants={zoomIn} src={jordanRed} className="comic-decoration decor-top-left" />
-        <motion.img variants={zoomIn} src={sneakerBlue} className="comic-decoration decor-top-right" />
-        <motion.img variants={zoomIn} src={burstPow} className="comic-decoration decor-bottom-left" />
-        <motion.img variants={zoomIn} src={burstZap} className="comic-decoration decor-bottom-right" />
+        <motion.img
+          variants={zoomIn}
+          src={jordanRed}
+          className="comic-decoration decor-top-left"
+        />
+        <motion.img
+          variants={zoomIn}
+          src={sneakerBlue}
+          className="comic-decoration decor-top-right"
+        />
+        <motion.img
+          variants={zoomIn}
+          src={burstPow}
+          className="comic-decoration decor-bottom-left"
+        />
+        <motion.img
+          variants={zoomIn}
+          src={burstZap}
+          className="comic-decoration decor-bottom-right"
+        />
 
         <PageBlockWrapper>
           <AuthCard type="login" />

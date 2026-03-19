@@ -1,44 +1,47 @@
 .social-buttons-container {
-    display: flex;
-    justify-content: center;
-    gap: 17px;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 17px;
+  margin-bottom: 20px;
 }
 
 .social-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 4px;
-    background: #fff;
-    width: 72px;
-    height: 48px;
-    border: 3px solid #000;
-    box-shadow: 4px 4px 0 #000;
-    transition: transform 0.1s, box-shadow 0.1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 4px;
+  background: #fff;
+  width: 72px;
+  height: 48px;
+  border: 3px solid #000;
+  box-shadow: 4px 4px 0 #000;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
 }
 
 .social-button:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #000;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000;
 }
 
 .social-button:active {
-    transform: translate(1px, 1px);
-    box-shadow: 2px 2px 0 #000;
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 #000;
 }
 
 .social-icon {
-    width: 24px;
-    height: 24px;
+  width: 24px;
+  height: 24px;
 }
 
 .dark-theme .social-button {
-    border-color: #ffde03;
-    box-shadow: 4px 4px 0 #fff;
+  background-color: #cfcfcf;
+  border-color: #ffde03;
+  box-shadow: 4px 4px 0 #2d2d2d;
 }
 
 .dark-theme .social-button:hover {
-    box-shadow: 6px 6px 0 #fff;
+  box-shadow: 6px 6px 0 #161616;
 }

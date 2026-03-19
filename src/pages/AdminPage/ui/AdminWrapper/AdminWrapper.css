@@ -6,7 +6,7 @@
   background-color: #f0f0f0;
 }
 
-.comic-admin {
+.admin-layout-main {
   display: flex;
   flex: 1;
   width: 100%;
@@ -14,113 +14,184 @@
   overflow: hidden;
 }
 
-.comic-sidebar {
-  width: 250px;
-  background: #ff5252;
+.admin-sidebar {
+  min-width: 250px;
+  background: #fff;
   border-right: 4px solid #000;
-  display: flex;
-  flex-direction: column;
   padding: 20px;
   height: 100%;
   overflow-y: auto;
   margin: 0;
-  flex-shrink: 0;
 }
 
-.comic-logo {
-  font-size: 2.5rem;
-  color: white;
-  text-shadow: 4px 4px 0px #000;
+.admin-sidebar__title {
+  font-size: 32px;
   margin-bottom: 40px;
-  transform: rotate(-5deg);
+  text-transform: uppercase;
+  border-bottom: 4px solid #000;
+  padding-bottom: 15px;
   text-align: center;
+  background-color: #ffde03;
+  box-shadow: 5px 5px 0px #000;
+  transform: rotate(-2deg);
+  box-sizing: border-box;
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
-.nav-item {
+.admin-sidebar__btn {
   display: block;
   padding: 15px;
   margin-bottom: 10px;
-  text-decoration: none;
-  color: #000;
+  width: 100%;
   background: #fff;
   border: 4px solid #000;
+  text-align: center;
   font-weight: bold;
   text-transform: uppercase;
   cursor: pointer;
-  transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
-  width: 100%;
-  text-align: left;
-  box-sizing: border-box;
+  transition: transform 0.1s;
+  color: #000;
   box-shadow: none;
 }
 
-.nav-item:hover,
-.nav-item.active {
+.admin-sidebar__btn:hover,
+.admin-sidebar__btn--active {
   transform: translate(-4px, -4px);
   box-shadow: 4px 4px 0px #000;
   background: #ffde03;
 }
 
-.nav-item.active {
+.admin-sidebar__btn--active {
   background: #ffd740;
+}
+
+.admin-content-area {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fdfbf1;
+  background-image: radial-gradient(#000000 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: relative;
+  font-family: inherit;
+}
+
+.admin-content-card {
+  background: #fff;
+  border: 4px solid #000;
+  box-shadow: 6px 6px 0 #000000;
+  padding: 40px;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
 }
 
 .dark-theme .admin-page-container {
   background-color: #121212;
 }
 
-.dark-theme .comic-sidebar {
-  background: #8e1c1c;
-  border-right-color: #ffde03;
+.dark-theme .admin-sidebar {
+  background: #121212;
+  border-right: 4px solid #333;
 }
 
-.dark-theme .nav-item {
-  background: #2d2d2d;
+.dark-theme .admin-sidebar__title {
+  color: #ffde03;
+  text-shadow: 4px 4px 0px #000;
+  background-color: #1a1a1a;
+}
+
+.dark-theme .admin-content-area {
+  background-color: #121212;
+  background-image: radial-gradient(#3a3a3a 1.2px, transparent 1.2px);
+}
+
+.dark-theme .admin-content-card {
+  background: #1a1a1a;
   color: #fff;
-  border-color: #ffde03;
+  border-color: #333;
+  box-shadow: 6px 6px 0 #000;
 }
 
-.dark-theme .nav-item:hover,
-.dark-theme .nav-item.active {
+.dark-theme .admin-sidebar__btn {
+  background: #1a1a1a;
+  color: #ffde03;
+  border-color: #000000;
+}
+
+.dark-theme .admin-sidebar__btn:hover,
+.dark-theme .admin-sidebar__btn--active {
   background: #ffde03;
   color: #000;
-  box-shadow: 4px 4px 0 #fff;
+  border-color: #000;
 }
 
 @media (max-width: 768px) {
-  .comic-admin {
+  .admin-layout-main {
     flex-direction: column;
-    overflow: auto;
+    width: 100%;
+    overflow-x: hidden;
   }
 
-  .comic-sidebar {
+  .admin-sidebar {
     width: 100%;
     height: auto;
     border-right: none;
     border-bottom: 4px solid #000;
     flex-direction: row;
     overflow-x: auto;
-    overflow-y: hidden;
     padding: 10px;
-    gap: 10px;
     align-items: center;
+    box-sizing: border-box;
+    flex-shrink: 0;
   }
 
-  .comic-sidebar nav {
+  .admin-sidebar nav {
     display: flex;
     flex-direction: row;
     gap: 10px;
     flex-shrink: 0;
   }
 
-  .comic-logo {
+  .admin-sidebar__title {
     display: none;
   }
 
-  .nav-item {
+  .admin-sidebar__btn {
     margin-bottom: 0;
-    width: auto;
     white-space: nowrap;
-    flex-shrink: 0;
+    width: auto;
+  }
+
+  .admin-content-area {
+    padding: 20px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .admin-content-card {
+    padding: 24px 20px;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-content-area {
+    padding: 14px 10px;
+    background-size: 16px 16px;
+  }
+
+  .admin-content-card {
+    padding: 18px 14px;
+    box-shadow: 6px 6px 0px 0px #000;
   }
 }

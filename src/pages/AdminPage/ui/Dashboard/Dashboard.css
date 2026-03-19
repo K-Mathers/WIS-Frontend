@@ -1,9 +1,6 @@
 .comic-main {
-  flex: 1;
-  padding: 30px;
-  overflow-y: auto;
-  background-color: #fdfbf1;
-  background-image: radial-gradient(#000000 1px, transparent 1px);
+  width: 100%;
+  padding-bottom: 20px;
 }
 
 .stats-grid {
@@ -82,42 +79,23 @@
   font-size: 0.8rem;
 }
 
-.dark-theme body {
-  background-color: #121212;
-}
-
-.dark-theme .comic-sidebar {
-  background: #8e1c1c;
-  border-right-color: #ffde03;
-}
-
-.dark-theme .nav-item {
-  background: #2d2d2d;
-  color: #fff;
-  border-color: #ffde03;
-}
-
-.dark-theme .nav-item:hover,
-.dark-theme .nav-item.active {
-  background: #ffde03;
-  color: #000;
-  box-shadow: 4px 4px 0 #fff;
-}
-
 .dark-theme .comic-panel {
   background: #1e1e1e;
+  border-color: #333;
   color: #fff;
+  box-shadow: 8px 8px 0px #000;
 }
 
 .dark-theme .comic-table th {
   background: #1a1a1a;
   color: #fff;
-  border-color: #ffde03;
+  border-color: #333;
 }
 
 .dark-theme .comic-table td {
+  background: #1e1e1e;
   color: #fff;
-  border-color: #ffde03;
+  border-color: #333;
 }
 
 .dark-theme .status-tag {
@@ -127,8 +105,15 @@
 }
 
 .dark-theme .comic-card {
-  border-color: #ffde03;
-  box-shadow: 8px 8px 0 #fff;
+  border-color: #333;
+  background: #1a1a1a;
+  box-shadow: 8px 8px 0 #000;
+}
+
+.dark-theme .yellow,
+.dark-theme .red,
+.dark-theme .blue {
+  color: #fff;
 }
 
 .panel-header {

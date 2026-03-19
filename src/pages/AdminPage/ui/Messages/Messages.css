@@ -1,412 +1,467 @@
 .comic-messages-container {
-    display: flex;
-    flex: 1;
-    height: 100%;
-    align-self: stretch;
-    overflow: hidden;
-    background: #fff;
+  display: flex;
+  flex: 1;
+  height: 700px;
+  max-height: 80vh;
+  align-self: stretch;
+  overflow: hidden;
+  background: #fff;
+  border: 4px solid #000;
 }
 
 .chats-sidebar {
-    width: 350px;
-    border-right: 4px solid #000;
-    display: flex;
-    flex-direction: column;
-    background: #f8f8f8;
+  width: 350px;
+  border-right: 4px solid #000;
+  display: flex;
+  flex-direction: column;
+  background: #f8f8f8;
 }
 
 .sidebar-header {
-    padding: 20px;
-    background: #ffde03;
-    border-bottom: 4px solid #000;
-    width: 100%;
-    text-align: center;
+  padding: 20px;
+  background: #ffde03;
+  border-bottom: 4px solid #000;
+  width: 100%;
+  text-align: center;
+  color: #000;
 }
 
 .panel-title {
-    margin: 0;
-    font-family: 'Comic Neue', cursive;
-    font-weight: 900;
-    font-size: 1.5rem;
-    text-shadow: 2px 2px 0 #fff;
+  margin: 0;
+  font-family: "Comic Neue", cursive;
+  font-weight: 900;
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 0 #fff;
+  color: #000;
 }
 
 .chats-list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 10px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
 }
 
 .chat-item {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    margin-bottom: 10px;
-    background: white;
-    border: 3px solid #000;
-    cursor: pointer;
-    transition: transform 0.1s, box-shadow 0.1s;
-    position: relative;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: white;
+  border: 3px solid #000;
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
+  position: relative;
 }
 
 .chat-item:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 4px 4px 0 #000;
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 #000;
 }
 
 .chat-item.active {
-    background: #ffde03;
-    transform: translate(-4px, -4px);
-    box-shadow: 4px 4px 0 #000;
+  background: #ffde03;
+  transform: translate(-4px, -4px);
+  box-shadow: 4px 4px 0 #000;
+  color: #000;
 }
 
 .chat-avatar {
-    width: 45px;
-    height: 45px;
-    background: #ff5252;
-    border: 2px solid #000;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Comic Neue', cursive;
-    font-weight: 900;
-    color: white;
-    margin-right: 15px;
+  width: 45px;
+  height: 45px;
+  background: #ff5252;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Comic Neue", cursive;
+  font-weight: 900;
+  color: white;
+  margin-right: 15px;
+  flex-shrink: 0;
 }
 
 .chat-info {
-    flex: 1;
-    overflow: hidden;
+  flex: 1;
+  overflow: hidden;
 }
 
 .chat-name {
-    font-weight: 900;
-    font-family: 'Comic Neue', cursive;
-    margin-bottom: 2px;
+  font-weight: 900;
+  font-family: "Comic Neue", cursive;
+  margin-bottom: 2px;
 }
 
 .chat-last-msg {
-    font-size: 0.8rem;
-    color: #666;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 0.8rem;
+  color: #666;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .status-indicator {
-    width: 12px;
-    height: 12px;
-    border: 2px solid #000;
-    border-radius: 50%;
-    position: absolute;
-    top: 5px;
-    right: 5px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 
 .status-indicator.online {
-    background: #4ecdc4;
+  background: #4ecdc4;
 }
 
 .status-indicator.offline {
-    background: #95a5a6;
+  background: #95a5a6;
 }
 
 .chat-main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: #eee url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #eee
+    url("https://www.transparenttextures.com/patterns/pinstriped-suit.png");
+}
+
+.chat-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
 }
 
 .chat-main * {
-    margin: 0;
+  margin: 0;
 }
 
 .chat-header {
-    padding: 15px 30px;
-    background: #ff5252;
-    border-bottom: 4px solid #000;
-    color: white;
+  padding: 15px 30px;
+  background: #ff5252;
+  border-bottom: 4px solid #000;
+  color: white;
 }
 
 .chat-title {
-    margin: 0;
-    font-family: 'Comic Neue', cursive;
-    font-weight: 900;
-    text-shadow: 2px 2px 0 #000;
+  margin: 0;
+  font-family: "Comic Neue", cursive;
+  font-weight: 900;
+  text-shadow: 2px 2px 0 #000;
 }
 
 .messages-display {
-    flex: 1;
-    padding: 30px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  flex: 1;
+  padding: 30px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .message-row {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .message-row.user {
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .message-row.admin {
-    justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .message-bubble {
-    max-width: 70%;
-    padding: 15px 20px;
-    border: 3px solid #000;
-    position: relative;
-    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.1);
+  max-width: 70%;
+  padding: 15px 20px;
+  border: 3px solid #000;
+  position: relative;
+  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.1);
 }
 
 .user .message-bubble {
-    background: white;
-    border-radius: 20px 20px 20px 0;
-    transform: rotate(-1deg);
+  background: white;
+  border-radius: 20px 20px 20px 0;
+  transform: rotate(-1deg);
 }
 
 .admin .message-bubble {
-    background: #ffde03;
-    border-radius: 20px 20px 0 20px;
-    transform: rotate(1deg);
+  background: #ffde03;
+  border-radius: 20px 20px 0 20px;
+  transform: rotate(1deg);
+  color: #000;
 }
 
 .message-text {
-    margin: 0 0 5px 0;
-    font-family: 'Comic Neue', cursive;
-    font-weight: 600;
-    line-height: 1.4;
+  margin: 0 0 5px 0;
+  font-family: "Comic Neue", cursive;
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .message-time {
-    font-size: 0.7rem;
-    font-weight: 900;
-    display: block;
-    text-align: right;
-    color: rgba(0, 0, 0, 0.5);
+  font-size: 0.7rem;
+  font-weight: 900;
+  display: block;
+  text-align: right;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .message-input-area {
-    padding: 20px 30px;
-    background: white;
-    border-top: 4px solid #000;
+  padding: 20px 30px;
+  background: white;
+  border-top: 4px solid #000;
 }
 
 .input-wrapper {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .comic-input {
-    flex: 1;
-    padding: 15px;
-    border: 3px solid #000;
-    font-family: 'Comic Neue', cursive;
-    font-weight: 700;
-    font-size: 1rem;
-    outline: none;
-    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.1);
+  flex: 1;
+  padding: 15px;
+  border: 3px solid #000;
+  font-family: "Comic Neue", cursive;
+  font-weight: 700;
+  font-size: 1rem;
+  outline: none;
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.1);
 }
 
 .comic-input:focus {
-    background: #fffdf0;
+  background: #fffdf0;
 }
 
 .comic-send-btn {
-    background: #ffde03;
-    border: 3px solid #000;
-    padding: 0 25px;
-    font-family: 'Comic Neue', cursive;
-    font-weight: 900;
-    cursor: pointer;
-    box-shadow: 4px 4px 0 #000;
-    transition: transform 0.1s, box-shadow 0.1s;
+  background: #ffde03;
+  border: 3px solid #000;
+  padding: 0 25px;
+  font-family: "Comic Neue", cursive;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
+  color: #000;
 }
 
 .comic-send-btn:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 #000;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000;
 }
 
 .comic-send-btn:active {
-    transform: translate(0, 0);
-    box-shadow: 2px 2px 0 #000;
+  transform: translate(0, 0);
+  box-shadow: 2px 2px 0 #000;
 }
 
 .no-chat-selected {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .no-chat-selected .comic-card {
-    background: white;
-    padding: 40px;
-    border: 4px solid #000;
-    box-shadow: 10px 10px 0 #ff5252;
-    text-align: center;
-    transform: rotate(-2deg);
+  background: white;
+  padding: 40px;
+  border: 4px solid #000;
+  box-shadow: 10px 10px 0 #ff5252;
+  text-align: center;
+  transform: rotate(-2deg);
 }
 
 .no-chat-selected p {
-    font-family: 'Comic Neue', cursive;
-    font-weight: 900;
-    font-size: 2rem;
-    margin: 0;
+  font-family: "Comic Neue", cursive;
+  font-weight: 900;
+  font-size: 2rem;
+  margin: 0;
 }
 
 .sub-text {
-    font-size: 1.2rem;
-    color: #ff5252;
-    margin-top: 10px;
+  font-size: 1.2rem;
+  color: #ff5252;
+  margin-top: 10px;
 }
 
 .dark-theme .comic-messages-container {
-    background: #121212;
-    border-top-color: #ffde03;
+  background: #121212;
+  border-color: #333;
 }
 
 .dark-theme .chats-sidebar {
-    background: #1a1a1a;
-    border-right-color: #ffde03;
+  background: #1a1a1a;
+  border-color: #333;
 }
 
 .dark-theme .chat-item {
-    background: #2d2d2d;
-    border-color: #ffde03;
-    color: white;
+  background: #2d2d2d;
+  border-color: #333;
+  color: white;
 }
 
 .dark-theme .chat-item:hover,
 .dark-theme .chat-item.active {
-    box-shadow: 4px 4px 0 #fff;
+  box-shadow: 4px 4px 0 #fff;
 }
 
 .dark-theme .chat-last-msg {
-    color: #aaa;
+  color: #aaa;
 }
 
 .dark-theme .chat-main {
-    background-color: #121212;
+  background-color: #121212;
 }
 
 .dark-theme .message-bubble {
-    border-color: #ffde03;
-    box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.1);
+  border-color: #333;
+  box-shadow: 4px 4px 0 #000;
 }
 
 .dark-theme .user .message-bubble {
-    background: #1e1e1e;
-    color: white;
+  background: #1e1e1e;
+  color: white;
 }
 
 .dark-theme .message-time {
-    color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .dark-theme .message-input-area {
-    background: #1a1a1a;
-    border-top-color: #ffde03;
+  background: #1a1a1a;
+  border-top-color: #333;
 }
 
 .dark-theme .comic-input {
-    background: #2d2d2d;
-    color: white;
-    border-color: #ffde03;
+  background: #2d2d2d;
+  color: white;
+  border-color: #333;
 }
 
 .dark-theme .comic-send-btn {
-    box-shadow: 4px 4px 0 #fff;
+  box-shadow: 4px 4px 0 #fff;
+  background: #ffde03;
+  color: #000;
+}
+
+.dark-theme .no-chat-selected .comic-card {
+  background: #1a1a1a;
+  border-color: #333;
+  box-shadow: 8px 8px 0 #000;
 }
 
 @media (max-width: 768px) {
-    .comic-messages-container {
-        flex-direction: column;
-        height: auto;
-        min-height: 0;
-        flex: 1;
-    }
+  .comic-messages-container {
+    flex-direction: column;
+    height: 600px;
+    min-height: 0;
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-    .chats-sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 4px solid #000;
-        max-height: 220px;
-    }
+  .chats-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 4px solid #000;
+    max-height: 180px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
-    .chats-list {
-        display: flex;
-        flex-direction: row;
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding: 8px;
-        gap: 8px;
-        flex: none;
-    }
+  .chats-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 10px;
+    gap: 15px;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-    .chat-item {
-        min-width: 140px;
-        flex-shrink: 0;
-        margin-bottom: 0;
-    }
+  .chat-item {
+    min-width: 180px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+  }
 
-    .chat-avatar {
-        width: 36px;
-        height: 36px;
-        font-size: 0.85rem;
-        margin-right: 10px;
-    }
+  .chat-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+    margin-right: 10px;
+  }
 
-    .chat-name {
-        font-size: 0.8rem;
-    }
+  .chat-name {
+    font-size: 0.9rem;
+  }
 
-    .chat-main {
-        flex: 1;
-        min-height: 400px;
-    }
+  .chat-main {
+    flex: 1;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
 
-    .chat-header {
-        padding: 10px 16px;
-    }
+  .chat-header {
+    padding: 10px 16px;
+  }
 
-    .chat-title {
-        font-size: 1rem;
-    }
+  .chat-title {
+    font-size: 1rem;
+  }
 
-    .messages-display {
-        padding: 16px;
-        gap: 14px;
-    }
+  .messages-display {
+    padding: 16px;
+    gap: 14px;
+    overflow-y: auto;
+  }
 
-    .message-input-area {
-        padding: 12px 16px;
-    }
+  .message-input-area {
+    padding: 12px 16px;
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-    .comic-send-btn {
-        padding: 0 16px;
-        font-size: 0.85rem;
-    }
+  .comic-send-btn {
+    padding: 0 16px;
+    font-size: 0.85rem;
+  }
 
-    .message-bubble {
-        max-width: 90%;
-    }
+  .input-wrapper {
+    padding: 0px;
+  }
 
-    .no-chat-selected .comic-card {
-        padding: 24px;
-        transform: none;
-    }
+  .message-bubble {
+    max-width: 90%;
+  }
 
-    .no-chat-selected p {
-        font-size: 1.3rem;
-    }
+  .no-chat-selected {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .no-chat-selected .comic-card {
+    padding: 24px 10px;
+    transform: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .no-chat-selected p {
+    font-size: 1.3rem;
+  }
 }
