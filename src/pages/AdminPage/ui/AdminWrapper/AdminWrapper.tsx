@@ -14,19 +14,21 @@ const AdminWrapper = ({ children }: IAdminWrapper) => {
   const location = useLocation();
 
   const getActiveClass = (path: string) => {
-    return location.pathname === path ? "nav-item active" : "nav-item";
+    return location.pathname === path
+      ? "admin-sidebar__btn admin-sidebar__btn--active"
+      : "admin-sidebar__btn";
   };
   return (
     <div className="admin-page-container">
       <Header />
       <motion.div
-        className="comic-admin"
+        className="admin-layout-main"
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
       >
-        <motion.aside variants={slideInLeft} className="comic-sidebar">
-          <div className="comic-logo">ADMIN!</div>
+        <motion.aside variants={slideInLeft} className="admin-sidebar">
+          <div className="admin-sidebar__title">ADMIN</div>
           <nav>
             <button
               className={getActiveClass("/admin")}
@@ -48,8 +50,10 @@ const AdminWrapper = ({ children }: IAdminWrapper) => {
             </button>
           </nav>
         </motion.aside>
-        <motion.main variants={fadeInUp} style={{ flex: 1 }}>
-          {children}
+        <motion.main variants={fadeInUp} className="admin-content-area">
+          <div className="admin-content-card">
+            {children}
+          </div>
         </motion.main>
       </motion.div>
     </div>

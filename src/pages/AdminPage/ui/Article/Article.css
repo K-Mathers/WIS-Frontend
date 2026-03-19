@@ -1,10 +1,6 @@
 .moderation-page {
-  height: 100%;
-  overflow-y: auto;
-  background-color: #ffde03;
-  background-image: radial-gradient(#000 10%, transparent 11%);
-  background-size: 15px 15px;
-  padding: 40px;
+  width: 100%;
+  padding-bottom: 20px;
   font-family: 'Arial Black', sans-serif;
   color: #000;
 }
@@ -426,6 +422,99 @@
   to {
     transform: scale(1.1);
   }
+}
+
+.dark-theme .moderation-page {
+  color: #fff;
+}
+
+.dark-theme .mod-header {
+  border-color: #333;
+  box-shadow: 15px 15px 0px #8e1c1c;
+}
+
+.dark-theme .article-card {
+  background: #1a1a1a;
+  border-color: #333;
+  box-shadow: 20px 20px 0px #000;
+  color: #fff;
+}
+
+.dark-theme .status-badge,
+.dark-theme .category-badge {
+  box-shadow: 4px 4px 0px #000;
+  border-color: #333;
+}
+
+.dark-theme .main-cover-wrapper {
+  border-color: #333;
+}
+
+.dark-theme .gallery-thumb {
+  border-color: #333;
+}
+
+.dark-theme .slug-text {
+  background: #2d2d2d;
+  color: #ddd;
+  border-color: #333;
+}
+
+.dark-theme .meta-data-grid {
+  background: #2d2d2d;
+  border-color: #333;
+  box-shadow: 8px 8px 0px #000;
+}
+
+.dark-theme .meta-label {
+  color: #aaa;
+}
+
+.dark-theme .comic-tag {
+  background: #2d2d2d;
+  color: #ffde03;
+  border-color: #333;
+  box-shadow: 3px 3px 0px #000;
+}
+
+.dark-theme .comic-tag:nth-child(even) {
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.dark-theme .desc-section {
+  background: #2d2d2d;
+}
+
+.dark-theme .article-body-preview {
+  background: #1e1e1e;
+  border-color: #555;
+  color: #ddd;
+}
+
+.dark-theme .empty-content {
+  background: #1a1a1a;
+  border-color: #333;
+  box-shadow: 15px 15px 0px #8e1c1c;
+}
+
+.dark-theme .feedback-label {
+  background: #444;
+  color: #ffde03;
+  border-color: #333;
+  box-shadow: 4px 4px 0px #000;
+}
+
+.dark-theme .comic-feedback-input {
+  background: #1e1e1e;
+  color: #fff;
+  border-color: #333;
+  box-shadow: 8px 8px 0px #000;
+}
+
+.dark-theme .comic-feedback-input:focus {
+  background: #2d2d2d;
+  box-shadow: 12px 12px 0px #8e1c1c;
 }
 
 @media (max-width: 900px) {

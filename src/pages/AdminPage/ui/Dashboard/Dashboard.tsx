@@ -6,6 +6,8 @@ import MissionModal from "./MissionModal";
 import { useQuery } from "@tanstack/react-query";
 import SkeletonWrapper from "@/utils/skeleton/SkeletonWrapper";
 import DashboardSkeleton from "./skeleton/DashboardSkeleton";
+import { motion } from "framer-motion";
+import { fadeInUp } from "@/utils/animations";
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,76 +30,80 @@ const Dashboard = () => {
   };
 
   return (
-    <main className="comic-main">
-      <SkeletonWrapper isLoading={isLoading} skeleton={<DashboardSkeleton />}>
-        <section className="stats-grid">
-          <div className="comic-card yellow">
-            <h3>ACTIVE USERS</h3>
-            <p className="stat-value">{dashData?.stats.totalUser}</p>
-          </div>
-          <div className="comic-card red">
-            <h3>ARTICLES</h3>
-            <p className="stat-value">{dashData?.stats.totalArticles}</p>
-          </div>
-          <div className="comic-card blue">
-            <h3>NEW MESSAGES</h3>
-            <p className="stat-value">{dashData?.stats.newMessages}</p>
-          </div>
-        </section>
+    <motion.div variants={fadeInUp}>
+      <main className="comic-main">
+        <SkeletonWrapper isLoading={isLoading} skeleton={<DashboardSkeleton />}>
+          <section className="stats-grid">
+            <div className="comic-card yellow">
+              <h3>ACTIVE USERS</h3>
+              <p className="stat-value">{dashData?.stats.totalUser}</p>
+            </div>
+            <div className="comic-card red">
+              <h3>ARTICLES</h3>
+              <p className="stat-value">{dashData?.stats.totalArticles}</p>
+            </div>
+            <div className="comic-card blue">
+              <h3>NEW MESSAGES</h3>
+              <p className="stat-value">{dashData?.stats.newMessages}</p>
+            </div>
+          </section>
 
-        <section className="comic-panel table-panel">
-          <div className="panel-header">
-            <h2>RECENT MISSIONS (TASKS)</h2>
-            <button className="comic-btn" onClick={handleCreateMission}>
-              CREATE MISSION
-            </button>
-          </div>
-          <table className="comic-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>MISSION</th>
-                <th>STATUS</th>
-                <th>ACTION</th>
-              </tr>
-            </thead>
-            <tbody>
-              {dashData?.missions.map((task) => (
-                <tr key={task.id}>
-                  <td title={task.id}>#{task.id.slice(0, 4)}</td>
-                  <td>{task.title}</td>
-                  <td>
-                    <span className={`status-tag ${task.status.toLowerCase()}`}>
-                      {task.status}
-                    </span>
-                  </td>
-                  <td>
-                    <button
-                      className="comic-btn"
-                      onClick={() => handleEditMission(task)}
-                    >
-                      VIEW
-                    </button>
-                  </td>
-                </tr>
-              ))}
-              {dashData?.missions.length === 0 && (
+          <section className="comic-panel table-panel">
+            <div className="panel-header">
+              <h2>RECENT MISSIONS (TASKS)</h2>
+              <button className="comic-btn" onClick={handleCreateMission}>
+                CREATE MISSION
+              </button>
+            </div>
+            <table className="comic-table">
+              <thead>
                 <tr>
-                  <td colSpan={4} style={{ textAlign: "center" }}>
-                    No tasks found
-                  </td>
+                  <th>ID</th>
+                  <th>MISSION</th>
+                  <th>STATUS</th>
+                  <th>ACTION</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </section>
-        <MissionModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          task={selectedTask}
-        />
-      </SkeletonWrapper>
-    </main>
+              </thead>
+              <tbody>
+                {dashData?.missions.map((task) => (
+                  <tr key={task.id}>
+                    <td title={task.id}>#{task.id.slice(0, 4)}</td>
+                    <td>{task.title}</td>
+                    <td>
+                      <span
+                        className={`status-tag ${task.status.toLowerCase()}`}
+                      >
+                        {task.status}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        className="comic-btn"
+                        onClick={() => handleEditMission(task)}
+                      >
+                        VIEW
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+                {dashData?.missions.length === 0 && (
+                  <tr>
+                    <td colSpan={4} style={{ textAlign: "center" }}>
+                      No tasks found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </section>
+          <MissionModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            task={selectedTask}
+          />
+        </SkeletonWrapper>
+      </main>
+    </motion.div>
   );
 };
 
