@@ -1,69 +1,65 @@
-# React + TypeScript + Vite
+# 👟 WIS Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**WIS Frontend** is a modern web application built with **React + Vite**, feat. UI components with **Ant Design**, data fetching with **TanStack React Query**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📋 Stack 
 
-## Expanding the ESLint configuration
+- **React**: v19
+- **Build Tool**: Vite
+- **Styling**: CSS, Ant Design
+- **State Management**: TanStack React Query v5
+- **Utils**: React Hook Form, Zod, Framer Motion, Socket.io-client, Axios, Tiptap
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Quick Start Guide
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 1. Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Clone the repository and install dependencies:
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Running the Application
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Dev mode
+npm run dev
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Production build
+npm run build
+
+# Preview build
+npm run preview
 ```
+
+## 📁 Project Structure
+
+- `src/api` - API requests and networking
+- `src/assets` - Static assets like images and icons
+- `src/components` - Reusable UI components
+- `src/const` - Application constants
+- `src/context` - React Context providers
+- `src/hooks` - Custom React hooks
+- `src/pages` - Application pages for routing
+- `src/schemas` - Validation schemas (Zod)
+- `src/types` - TypeScript interfaces and types
+- `src/utils` - Helper functions
+
+---
+
+### 📢 Contact
+
+```bash
+👤 Author: Kimerland and Pawsing-ctr
+📧 Email: kimerland.project@gmail.com
+🐙 GitHub: Kimerland
+```
+
+---
+
+### ⭐️ If you like this project, please give it a star!
